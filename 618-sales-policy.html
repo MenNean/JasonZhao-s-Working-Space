@@ -1183,7 +1183,11 @@ lucide.createIcons({icons});\``);if(typeof c>"u")throw new Error("`createIcons()
                     </button>
                 </div>
             </div>
-            <iframe id="pdfIframe" src="" class="flex-1 w-full border-0"></iframe>
+            <div class="flex-1 overflow-y-auto bg-slate-50 flex flex-col items-center gap-4 p-4">
+                <img src="lucibi-功能及场景介绍-20260414V3_00.jpg" class="w-full max-w-4xl rounded shadow-md" />
+                <img src="lucibi-功能及场景介绍-20260414V3_01.jpg" class="w-full max-w-4xl rounded shadow-md" />
+                <img src="lucibi-功能及场景介绍-20260414V3_02.jpg" class="w-full max-w-4xl rounded shadow-md" />
+            </div>
         </div>
     </div>
 
@@ -1527,25 +1531,11 @@ lucide.createIcons({icons});\``);if(typeof c>"u")throw new Error("`createIcons()
             const modal = document.getElementById('pdfModal');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-            // 首次打开时从下载链接的 data URI 转为 Blob URL，避免 file:// 协议限制
-            const iframe = document.getElementById('pdfIframe');
-            if (!window._pdfBlobUrl) {
-                const dataHref = document.querySelector('a[download][href^="data:application/pdf"]').href;
-                const b64 = dataHref.split(',')[1];
-                const binary = atob(b64);
-                const bytes = new Uint8Array(binary.length);
-                for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-                const blob = new Blob([bytes], { type: 'application/pdf' });
-                window._pdfBlobUrl = URL.createObjectURL(blob);
-            }
-            iframe.src = window._pdfBlobUrl;
         }
         function closePdfPreview() {
             const modal = document.getElementById('pdfModal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
-            // 清空 src 但保留 blobUrl 缓存，下次打开无需重新转换
-            document.getElementById('pdfIframe').src = '';
         }
         document.getElementById('pdfModal').addEventListener('click', function(e) {
             if (e.target === this) closePdfPreview();
