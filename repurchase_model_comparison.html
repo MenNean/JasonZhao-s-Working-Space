@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>复购模型 1.0 与 2.0 对比</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #667085;
+      --line: #d9e0ea;
+      --page: #f5f7fb;
+      --panel: #ffffff;
+      --rule: #6b7280;
+      --predict: #2563eb;
+      --tune: #0f9f8c;
+      --accent: #f59e0b;
+      --soft-blue: #eaf2ff;
+      --soft-teal: #e7f7f4;
+      --soft-amber: #fff4d8;
+      --soft-gray: #eef2f7;
+      --shadow: 0 18px 50px rgba(23, 32, 51, .10);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(37, 99, 235, .10), transparent 30%),
+        linear-gradient(315deg, rgba(15, 159, 140, .12), transparent 34%),
+        var(--page);
+      letter-spacing: 0;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 40px 0 52px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      color: #ffffff;
+      background:
+        linear-gradient(120deg, rgba(23, 32, 51, .96), rgba(36, 65, 112, .92)),
+        radial-gradient(circle at 82% 20%, rgba(15, 159, 140, .35), transparent 28%);
+      border-radius: 8px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+      min-height: 310px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: 28px;
+      top: 32px;
+      width: 330px;
+      height: 210px;
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 8px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.13) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,.13) 1px, transparent 1px);
+      background-size: 55px 42px;
+      opacity: .55;
+    }
+
+    .eyebrow {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      padding: 7px 11px;
+      border: 1px solid rgba(255, 255, 255, .28);
+      border-radius: 999px;
+      color: rgba(255, 255, 255, .86);
+      font-size: 13px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 18px;
+      max-width: 780px;
+      font-size: clamp(34px, 4.8vw, 58px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .hero-lead {
+      position: relative;
+      z-index: 1;
+      max-width: 830px;
+      margin: 0;
+      color: rgba(255, 255, 255, .88);
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .hero-metrics {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      width: min(760px, 100%);
+      margin-top: 30px;
+    }
+
+    .metric {
+      padding: 16px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .10);
+      border: 1px solid rgba(255, 255, 255, .16);
+    }
+
+    .metric strong {
+      display: block;
+      margin-bottom: 7px;
+      color: #ffffff;
+      font-size: 17px;
+    }
+
+    .metric span {
+      color: rgba(255, 255, 255, .76);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    section {
+      margin-top: 26px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+
+    .section-note {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .model-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .model-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 10px 28px rgba(23, 32, 51, .06);
+      overflow: hidden;
+    }
+
+    .model-head {
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .model-card.v1 .model-head {
+      background: var(--soft-gray);
+    }
+
+    .model-card.v2 .model-head {
+      background: linear-gradient(135deg, var(--soft-blue), var(--soft-teal));
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 9px;
+      border-radius: 999px;
+    }
+
+    .v1 .tag {
+      background: var(--rule);
+    }
+
+    .v2 .tag {
+      background: var(--predict);
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+
+    .model-body {
+      padding: 20px 22px 22px;
+    }
+
+    .model-body p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .points {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .point {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 12px;
+      border-radius: 8px;
+      background: #f8fafc;
+      border: 1px solid #e8edf4;
+      min-height: 58px;
+    }
+
+    .num {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .v1 .num {
+      background: var(--rule);
+    }
+
+    .v2 .num {
+      background: var(--tune);
+    }
+
+    .point b {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 15px;
+    }
+
+    .point span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: 1fr 80px 1fr 80px 1fr;
+      align-items: stretch;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .flow-step {
+      min-height: 168px;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 10px 28px rgba(23, 32, 51, .06);
+    }
+
+    .flow-step small {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .flow-step h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .flow-step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .flow-arrow {
+      display: grid;
+      place-items: center;
+      color: var(--predict);
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 0 10px 28px rgba(23, 32, 51, .06);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 860px;
+    }
+
+    th,
+    td {
+      padding: 15px 16px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      color: #ffffff;
+      background: #23324d;
+      font-size: 14px;
+      z-index: 1;
+    }
+
+    td:first-child {
+      width: 118px;
+      color: var(--ink);
+      font-weight: 700;
+      background: #f8fafc;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .value-card {
+      min-height: 158px;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 10px 28px rgba(23, 32, 51, .06);
+    }
+
+    .value-icon {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      margin-bottom: 14px;
+      border-radius: 8px;
+      color: #ffffff;
+      font-weight: 800;
+      background: var(--predict);
+    }
+
+    .value-card:nth-child(2) .value-icon {
+      background: var(--tune);
+    }
+
+    .value-card:nth-child(3) .value-icon {
+      background: var(--accent);
+    }
+
+    .value-card:nth-child(4) .value-icon {
+      background: #7c3aed;
+    }
+
+    .value-card h3 {
+      margin-bottom: 9px;
+      font-size: 18px;
+    }
+
+    .value-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .quote {
+      padding: 24px 26px;
+      border-radius: 8px;
+      background: #172033;
+      color: #ffffff;
+      box-shadow: var(--shadow);
+    }
+
+    .quote h2 {
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    .quote p {
+      margin: 0;
+      color: rgba(255,255,255,.84);
+      font-size: 16px;
+      line-height: 1.85;
+    }
+
+    .highlight {
+      color: #ffe08a;
+      font-weight: 700;
+    }
+
+    .footer {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        width: min(100% - 24px, 1180px);
+        padding-top: 22px;
+      }
+
+      .hero {
+        padding: 26px 22px;
+      }
+
+      .hero::after {
+        display: none;
+      }
+
+      .hero-metrics,
+      .model-grid,
+      .value-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .flow {
+        grid-template-columns: 1fr;
+      }
+
+      .flow-arrow {
+        min-height: 30px;
+        transform: rotate(90deg);
+      }
+
+      .section-title {
+        display: block;
+      }
+
+      .section-note {
+        display: block;
+        margin-top: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow">模型对比</div>
+      <h1>复购模型 1.0 与 2.0 对比</h1>
+      <p class="hero-lead">
+        复购模型 1.0 主要依赖固定规则和人工经验做触达；复购模型 2.0 引入“算法预测 + AI 调优”能力，由算法根据用户历史购买行为、购买偏好和复购周期，预测用户对曾经购买过的商品是否会再次产生复购需求及合适触达时机，再由 AI 根据触达效果持续优化算法参数。
+      </p>
+      <div class="hero-metrics">
+        <div class="metric">
+          <strong>1.0：规则触达</strong>
+          <span>按固定商品、固定时间、固定人群规则执行。</span>
+        </div>
+        <div class="metric">
+          <strong>2.0：算法预测 + AI 调优</strong>
+          <span>算法预测已购商品的复购需求与触达时机，AI 结合触达效果优化算法参数和后续策略。</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <h2>模型定位对比</h2>
+        <span class="section-note">从“定时群发”升级为“预测驱动的精细化运营”</span>
+      </div>
+      <div class="model-grid">
+        <article class="model-card v1">
+          <div class="model-head">
+            <span class="tag">VERSION 1.0</span>
+            <h3>规则驱动的自动触达</h3>
+          </div>
+          <div class="model-body">
+            <p>运营人员提前设定商品、时间和人群规则，系统按固定条件执行，适合完成基础复购提醒和规模化覆盖。</p>
+            <div class="points">
+              <div class="point">
+                <span class="num">1</span>
+                <div><b>固定规则</b><span>对在固定时间段内购买过指定商品的用户进行提醒。</span></div>
+              </div>
+              <div class="point">
+                <span class="num">2</span>
+                <div><b>全量投放</b><span>主要面向符合购买行为条件的人群。</span></div>
+              </div>
+              <div class="point">
+                <span class="num">3</span>
+                <div><b>人工复盘</b><span>规则相对固定，优化更多依赖人工判断。</span></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="model-card v2">
+          <div class="model-head">
+            <span class="tag">VERSION 2.0</span>
+            <h3>算法预测 + AI 调优</h3>
+          </div>
+          <div class="model-body">
+            <p>算法预测用户对曾经购买过的商品是否会再次产生复购需求，并判断更合适的触达时机；AI 根据触达效果持续调优算法参数。</p>
+            <div class="points">
+              <div class="point">
+                <span class="num">1</span>
+                <div><b>算法预测</b><span>结合历史购买、偏好和复购周期判断复购需求。</span></div>
+              </div>
+              <div class="point">
+                <span class="num">2</span>
+                <div><b>分层运营</b><span>按商品分组、消费能力和购买频次细分人群。</span></div>
+              </div>
+              <div class="point">
+                <span class="num">3</span>
+                <div><b>AI 调优</b><span>基于触达效果优化算法参数，让策略持续迭代。</span></div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <h2>2.0 的核心工作链路</h2>
+        <span class="section-note">算法负责预测，AI 负责调优</span>
+      </div>
+      <div class="flow">
+        <div class="flow-step">
+          <small>Input</small>
+          <h3>用户历史行为</h3>
+          <p>读取用户曾经购买过的商品、购买偏好、复购周期、消费能力与购买频次等信息。</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <small>Prediction</small>
+          <h3>算法预测复购需求</h3>
+          <p>判断用户是否可能对曾经购买过的商品再次产生复购需求，并识别更合适的触达时机。</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <small>Optimization</small>
+          <h3>AI 根据效果调优</h3>
+          <p>触达结果回传后，AI 辅助分析效果并调整算法参数，推动后续预测和投放策略持续优化。</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <h2>功能差异对比</h2>
+        <span class="section-note">保留业务同学最关心的配置与运营差异</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>功能模块</th>
+              <th>复购模型 1.0</th>
+              <th>复购模型 2.0</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>投放策略</td>
+              <td>全量投放，主要面向符合规则的人群。</td>
+              <td>可在预测复购日前后设置投放窗口，例如提前或延后若干天触达。</td>
+            </tr>
+            <tr>
+              <td>投放时间</td>
+              <td>每天固定时间投放。</td>
+              <td>支持按预测复购偏好时间投放，也可保留每天固定时间投放。</td>
+            </tr>
+            <tr>
+              <td>商品设置</td>
+              <td>需要手动添加指定商品 SKU 或 SKU List。</td>
+              <td>支持产品线管理，可预设商品分组，并按不同分组设置不同触达策略。</td>
+            </tr>
+            <tr>
+              <td>人群筛选</td>
+              <td>以“是否符合购买行为”为主要筛选条件。</td>
+              <td>可先筛选符合购买行为的人群，再按消费能力、购买频次等维度二次分组。不同分组可匹配不同文案、机制，并支持 A/B Test。</td>
+            </tr>
+            <tr>
+              <td>二次营销</td>
+              <td>主要依赖人工判断和手动执行。</td>
+              <td>可针对触达后一定时间内未转化的人群，自动追加多次营销触达。</td>
+            </tr>
+            <tr>
+              <td>模型优化</td>
+              <td>规则相对固定，优化依赖人工复盘。</td>
+              <td>触达效果数据回传后，由 AI 辅助分析效果并调优算法参数，推动后续预测和触达策略持续优化。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <h2>对业务的核心价值</h2>
+        <span class="section-note">从触达、策略、转化到优化形成闭环</span>
+      </div>
+      <div class="value-grid">
+        <article class="value-card">
+          <div class="value-icon">准</div>
+          <h3>触达更精准</h3>
+          <p>从“买过就触达”升级为“预测谁更可能对曾经购买过的商品产生复购需求、什么时候更适合触达”。</p>
+        </article>
+        <article class="value-card">
+          <div class="value-icon">活</div>
+          <h3>策略更灵活</h3>
+          <p>商品、人群、时间、文案和机制都可以分层配置，不再只依赖单一规则。</p>
+        </article>
+        <article class="value-card">
+          <div class="value-icon">控</div>
+          <h3>转化更可控</h3>
+          <p>对未转化人群可设置后续触达，减少一次触达无效后的流失。</p>
+        </article>
+        <article class="value-card">
+          <div class="value-icon">优</div>
+          <h3>优化可闭环</h3>
+          <p>触达结果能够反哺模型，AI 基于效果数据持续调优算法，让后续预测和投放策略持续迭代。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="quote">
+      <h2>推荐展示口径</h2>
+      <p>
+        复购模型 2.0 不是简单增加投放配置项，而是把复购运营从“规则驱动”升级为“预测驱动”。其中，<span class="highlight">算法负责判断用户对曾经购买过的商品是否会再次产生复购需求，以及更适合的触达时机</span>；<span class="highlight">AI 负责结合触达效果对算法参数进行动态调优</span>；再配合商品分组、人群分层、A/B Test 和效果回传，实现更精细、更可持续优化的复购触达。
+      </p>
+    </section>
+
+    <div class="footer">复购模型 1.0 / 2.0 对比说明 | 生成日期：2026-06-04</div>
+  </main>
+</body>
+</html>
