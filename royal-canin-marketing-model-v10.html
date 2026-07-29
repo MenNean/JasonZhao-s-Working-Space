@@ -1131,7 +1131,7 @@
       ganttFrame.className='project-gantt-frame';
       ganttFrame.title='病症场景项目甘特图';
       ganttFrame.loading='lazy';
-      ganttFrame.src='项目总览-病症场景甘特图-v1.21.html';
+      ganttFrame.srcdoc=buildSpreadsheetProjectGantt();
       ganttPanel.append(ganttFrame);
       const selectView=(view)=>{
         const fishboneActive=view==='fishbone';
