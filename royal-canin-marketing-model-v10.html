@@ -482,6 +482,7 @@
     .launch-schedule-tabs{display:flex;align-items:flex-end;gap:22px;margin:0 0 16px;padding:0 2px;border-bottom:1px solid #f0f0f0}.launch-schedule-tab{position:relative;height:32px;padding:0 2px;border:0;border-radius:0;background:transparent;color:#595959;font:inherit;font-size:13px;line-height:32px;cursor:pointer}.launch-schedule-tab:hover{color:#1677ff}.launch-schedule-tab[aria-selected="true"]{color:#1677ff;font-weight:600}.launch-schedule-tab[aria-selected="true"]::after{content:"";position:absolute;right:0;bottom:-1px;left:0;height:2px;background:#1677ff}.launch-detail-table{min-width:1280px}.launch-detail-table th,.launch-detail-table td{padding:9px 10px;font-size:12px;line-height:18px}.launch-detail-table th{white-space:nowrap}.launch-detail-table .launch-detail-module{color:#0958d9;font-weight:600}.launch-detail-table .launch-detail-stage{color:#434343;font-weight:600}.launch-detail-table .launch-detail-activity{color:#262626;font-weight:500}.launch-detail-table .launch-detail-date{color:#262626;font-variant-numeric:tabular-nums;white-space:nowrap}.launch-detail-required{display:inline-block;padding:2px 5px;border:1px solid #ffd591;border-radius:3px;background:#fff7e6;color:#ad4e00;font-size:11px;line-height:16px}@media(max-width:760px){.launch-schedule-tabs{gap:18px;margin-bottom:14px}.launch-detail-table{min-width:1180px}.launch-detail-table th,.launch-detail-table td{padding:8px 9px;font-size:11px;line-height:17px}}
     /* The detailed tab follows the supplied 8/12 execution schedule structure. */
     .launch-detail-wrap{border:1px solid #cfd4d6;background:#fff}.launch-detail-table{width:100%;min-width:1660px!important;border-collapse:collapse;table-layout:fixed;font-size:13px!important;line-height:1.45!important}.launch-detail-table caption{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.launch-detail-table th,.launch-detail-table td{padding:8px 9px!important;border:1px dashed #424242!important;color:#000!important;vertical-align:top!important;overflow-wrap:anywhere;background:#fff!important;font-size:13px!important;line-height:1.45!important}.launch-detail-table thead th{position:sticky;top:0;z-index:5;height:58px;border-bottom:3px solid #1677e8!important;background:#f6f7f7!important;text-align:center;vertical-align:middle!important;font-size:14px!important;font-weight:600;white-space:nowrap}.launch-detail-table tbody.stage-group tr:first-child>*{border-top:2px solid #424242!important}.launch-detail-table tr.stage-start>*{border-top:2px solid #424242!important}.launch-detail-table .module-cell,.launch-detail-table .stage-cell,.launch-detail-table .activity-cell{vertical-align:middle!important}.launch-detail-table .module-cell,.launch-detail-table .stage-cell{background:#fafafa!important;text-align:center;font-weight:500}.launch-detail-table .activity-cell{font-weight:600}.launch-detail-table .owner{font-weight:400;line-height:1.55;white-space:nowrap}.launch-detail-table .owner strong{font-weight:inherit}.launch-detail-table .date-cell{text-align:center;vertical-align:middle!important;font-variant-numeric:tabular-nums;white-space:nowrap}.launch-detail-table .milestone{font-weight:600}.launch-detail-table .note,.launch-detail-table .required{color:#000}.launch-detail-table tr.customer-collaboration-row>th,.launch-detail-table tr.customer-collaboration-row>td{background:#fff7e6!important}.launch-detail-table tr.launch-row td{background:#f3f8fe!important}@media(max-width:760px){.launch-detail-table{min-width:1660px!important}.launch-detail-table th,.launch-detail-table td{padding:8px 9px!important;font-size:13px!important;line-height:1.45!important}}
+    .launch-schedule-priority-reminder{margin:-4px 0 16px;border:1px solid #ffe58f;background:#fffbe6;color:#614700;font-size:13px;font-weight:400;line-height:20px}.launch-schedule-priority-title{display:flex;align-items:center;padding:8px 14px;border-bottom:1px solid #ffe58f}.launch-schedule-priority-title strong{color:#ad6800;font-size:14px;font-weight:700}.launch-schedule-priority-items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.launch-schedule-priority-item{display:grid;grid-template-columns:30px minmax(0,1fr);gap:9px;align-items:start;padding:12px 14px}.launch-schedule-priority-item+.launch-schedule-priority-item{border-left:1px solid #ffe58f}.launch-schedule-priority-item b{color:#ad6800;font-size:12px;font-weight:700;line-height:20px}.launch-schedule-priority-item span{color:#614700}@media(max-width:760px){.launch-schedule-priority-reminder{margin-bottom:14px}.launch-schedule-priority-items{grid-template-columns:1fr}.launch-schedule-priority-item+.launch-schedule-priority-item{border-top:1px solid #ffe58f;border-left:0}}
     /* Detail schedule: fit-to-page review preview, then an unclipped fullscreen reading layer. */
     .launch-detail-wrap.is-preview{overflow:hidden;cursor:zoom-in}.launch-detail-wrap.is-preview .launch-detail-table{transform:scale(var(--launch-preview-scale,1));transform-origin:top left}.launch-detail-wrap.is-fullscreen{width:var(--launch-fullscreen-width,1660px);min-width:0;max-width:none;margin:0 auto;overflow:visible;cursor:zoom-out}.launch-detail-fullscreen{position:fixed;z-index:200;inset:0;overflow:auto;padding:24px;background:rgba(8,17,30,.88);cursor:zoom-out}.launch-detail-fullscreen[hidden]{display:none}.launch-detail-fullscreen::before{content:"细项排期｜单击任意位置还原";position:fixed;z-index:1;top:12px;right:20px;padding:5px 9px;background:rgba(255,255,255,.9);color:#595959;font-size:12px;line-height:18px}.launch-detail-fullscreen .launch-detail-wrap{position:relative;z-index:2}.launch-detail-fullscreen .launch-detail-table{transform:scale(var(--launch-fullscreen-scale,1));transform-origin:top left}@media(max-width:760px){.launch-detail-fullscreen{padding:12px}.launch-detail-fullscreen::before{top:8px;right:10px;font-size:11px}}
   </style>
@@ -529,7 +530,7 @@
     function overview(){
       const groups=[
         {scene:'急性疾病 / 不再复发',summary:'GI（肠胃）',tone:'acute',models:[['GI','GI','肠胃','0/0']]},
-        {scene:'有复发 / 转慢性可能',summary:'Urinary（泌尿） · Dermatology（皮肤护理）',tone:'recurrent',models:[['UR','Urinary','泌尿','1/2'],['DE','Dermatology','皮肤护理','0/0']]},
+        {scene:'有复发 / 转慢性可能',summary:'Urinary（泌尿） · Dermatology（皮肤护理） · Chronic GI（慢性肠道病症）',tone:'recurrent',models:[['UR','Urinary','泌尿','1/2'],['DE','Dermatology','皮肤护理','0/0'],['CGI','Chronic GI','慢性肠道病症','0/0']]},
         {scene:'慢性疾病 / 长期服用',summary:'VET / Vital（营养支持） · Health Mgmt（健康管理）',tone:'chronic',models:[['VT','VET / Vital','营养支持','0/0'],['HM','Health Mgmt','健康管理','0/0']]},
         {scene:'轻问诊',summary:'Overweight（体重管理）',tone:'light',models:[['OW','Overweight','体重管理','0/0']]}
       ];
@@ -899,11 +900,15 @@
         if(event.key==='Escape')closeDetailFullscreen();
       });
       const [overviewTab,detailTab]=tabs.querySelectorAll('.launch-schedule-tab');
+      const priorityReminder=document.createElement('div');
+      priorityReminder.className='launch-schedule-priority-reminder';
+      priorityReminder.innerHTML='<div class="launch-schedule-priority-title"><strong>重点事项提醒</strong></div><div class="launch-schedule-priority-items"><div class="launch-schedule-priority-item"><b>01</b><span>一期先上什么病症场景</span></div><div class="launch-schedule-priority-item"><b>02</b><span>自营 + POP 是否要做数据整合，从品牌维度查看整体数据</span></div></div>';
       const selectTab=(view)=>{
         const showDetail=view==='detail';
         if(!showDetail)closeDetailFullscreen();
         overviewTab.setAttribute('aria-selected',String(!showDetail));
         detailTab.setAttribute('aria-selected',String(showDetail));
+        priorityReminder.hidden=showDetail;
         overviewWrap.hidden=showDetail;
         detailWrap.hidden=!showDetail;
         if(showDetail)requestAnimationFrame(syncPreview);
@@ -911,6 +916,8 @@
       overviewTab.addEventListener('click',()=>selectTab('overview'));
       detailTab.addEventListener('click',()=>selectTab('detail'));
       heading?.insertAdjacentElement('afterend',tabs);
+      tabs.insertAdjacentElement('afterend',priorityReminder);
+      priorityReminder.insertAdjacentElement('afterend',overviewWrap);
       overviewWrap.insertAdjacentElement('afterend',detailWrap);
       band.dataset.launchScheduleTabs='true';
     }
