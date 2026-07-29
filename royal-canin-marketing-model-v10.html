@@ -482,6 +482,8 @@
     .launch-schedule-tabs{display:flex;align-items:flex-end;gap:22px;margin:0 0 16px;padding:0 2px;border-bottom:1px solid #f0f0f0}.launch-schedule-tab{position:relative;height:32px;padding:0 2px;border:0;border-radius:0;background:transparent;color:#595959;font:inherit;font-size:13px;line-height:32px;cursor:pointer}.launch-schedule-tab:hover{color:#1677ff}.launch-schedule-tab[aria-selected="true"]{color:#1677ff;font-weight:600}.launch-schedule-tab[aria-selected="true"]::after{content:"";position:absolute;right:0;bottom:-1px;left:0;height:2px;background:#1677ff}.launch-detail-table{min-width:1280px}.launch-detail-table th,.launch-detail-table td{padding:9px 10px;font-size:12px;line-height:18px}.launch-detail-table th{white-space:nowrap}.launch-detail-table .launch-detail-module{color:#0958d9;font-weight:600}.launch-detail-table .launch-detail-stage{color:#434343;font-weight:600}.launch-detail-table .launch-detail-activity{color:#262626;font-weight:500}.launch-detail-table .launch-detail-date{color:#262626;font-variant-numeric:tabular-nums;white-space:nowrap}.launch-detail-required{display:inline-block;padding:2px 5px;border:1px solid #ffd591;border-radius:3px;background:#fff7e6;color:#ad4e00;font-size:11px;line-height:16px}@media(max-width:760px){.launch-schedule-tabs{gap:18px;margin-bottom:14px}.launch-detail-table{min-width:1180px}.launch-detail-table th,.launch-detail-table td{padding:8px 9px;font-size:11px;line-height:17px}}
     /* The detailed tab follows the supplied 8/12 execution schedule structure. */
     .launch-detail-wrap{border:1px solid #cfd4d6;background:#fff}.launch-detail-table{width:100%;min-width:1660px!important;border-collapse:collapse;table-layout:fixed;font-size:13px!important;line-height:1.45!important}.launch-detail-table caption{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.launch-detail-table th,.launch-detail-table td{padding:8px 9px!important;border:1px dashed #424242!important;color:#000!important;vertical-align:top!important;overflow-wrap:anywhere;background:#fff!important;font-size:13px!important;line-height:1.45!important}.launch-detail-table thead th{position:sticky;top:0;z-index:5;height:58px;border-bottom:3px solid #1677e8!important;background:#f6f7f7!important;text-align:center;vertical-align:middle!important;font-size:14px!important;font-weight:600;white-space:nowrap}.launch-detail-table tbody.stage-group tr:first-child>*{border-top:2px solid #424242!important}.launch-detail-table tr.stage-start>*{border-top:2px solid #424242!important}.launch-detail-table .module-cell,.launch-detail-table .stage-cell,.launch-detail-table .activity-cell{vertical-align:middle!important}.launch-detail-table .module-cell,.launch-detail-table .stage-cell{background:#fafafa!important;text-align:center;font-weight:500}.launch-detail-table .activity-cell{font-weight:600}.launch-detail-table .owner{font-weight:400;line-height:1.55;white-space:nowrap}.launch-detail-table .owner strong{font-weight:inherit}.launch-detail-table .date-cell{text-align:center;vertical-align:middle!important;font-variant-numeric:tabular-nums;white-space:nowrap}.launch-detail-table .milestone{font-weight:600}.launch-detail-table .note,.launch-detail-table .required{color:#000}.launch-detail-table tr.customer-collaboration-row>th,.launch-detail-table tr.customer-collaboration-row>td{background:#fff7e6!important}.launch-detail-table tr.launch-row td{background:#f3f8fe!important}@media(max-width:760px){.launch-detail-table{min-width:1660px!important}.launch-detail-table th,.launch-detail-table td{padding:8px 9px!important;font-size:13px!important;line-height:1.45!important}}
+    /* Detail schedule: fit-to-page review preview, then an unclipped fullscreen reading layer. */
+    .launch-detail-wrap.is-preview{overflow:hidden;cursor:zoom-in}.launch-detail-wrap.is-preview .launch-detail-table{transform:scale(var(--launch-preview-scale,1));transform-origin:top left}.launch-detail-wrap.is-fullscreen{width:var(--launch-fullscreen-width,1660px);min-width:0;max-width:none;margin:0 auto;overflow:visible;cursor:zoom-out}.launch-detail-fullscreen{position:fixed;z-index:200;inset:0;overflow:auto;padding:24px;background:rgba(8,17,30,.88);cursor:zoom-out}.launch-detail-fullscreen[hidden]{display:none}.launch-detail-fullscreen::before{content:"细项排期｜单击任意位置还原";position:fixed;z-index:1;top:12px;right:20px;padding:5px 9px;background:rgba(255,255,255,.9);color:#595959;font-size:12px;line-height:18px}.launch-detail-fullscreen .launch-detail-wrap{position:relative;z-index:2}.launch-detail-fullscreen .launch-detail-table{transform:scale(var(--launch-fullscreen-scale,1));transform-origin:top left}@media(max-width:760px){.launch-detail-fullscreen{padding:12px}.launch-detail-fullscreen::before{top:8px;right:10px;font-size:11px}}
   </style>
 </head>
 <body>
@@ -842,13 +844,69 @@
       detailWrap.querySelectorAll('tbody tr').forEach(row=>{
         if(row.querySelector('.owner')?.textContent.includes('皇家-业务'))row.classList.add('customer-collaboration-row');
       });
+      document.querySelector('.launch-detail-fullscreen[data-launch-detail-layer="true"]')?.remove();
+      document.body.classList.remove('launch-detail-fullscreen-open');
+      const detailFullscreen=document.createElement('div');
+      detailFullscreen.className='launch-detail-fullscreen';
+      detailFullscreen.dataset.launchDetailLayer='true';
+      detailFullscreen.hidden=true;
+      detailFullscreen.setAttribute('aria-label','细项排期全屏查看');
+      document.body.append(detailFullscreen);
+      const syncPreview=()=>{
+        if(detailWrap.hidden||detailWrap.classList.contains('is-fullscreen'))return;
+        const table=detailWrap.querySelector('.launch-detail-table');
+        const width=detailWrap.clientWidth;
+        const scale=Math.min(1,width/table.offsetWidth);
+        detailWrap.style.setProperty('--launch-preview-scale',String(scale));
+        detailWrap.style.height=`${Math.ceil(table.offsetHeight*scale)}px`;
+      };
+      const syncFullscreen=()=>{
+        if(detailFullscreen.hidden)return;
+        const table=detailWrap.querySelector('.launch-detail-table');
+        const available=Math.max(320,detailFullscreen.clientWidth-48);
+        const scale=Math.min(1,available/table.offsetWidth);
+        detailWrap.style.setProperty('--launch-fullscreen-scale',String(scale));
+        detailWrap.style.setProperty('--launch-fullscreen-width',`${Math.ceil(table.offsetWidth*scale)}px`);
+        detailWrap.style.height=`${Math.ceil(table.offsetHeight*scale)}px`;
+      };
+      const closeDetailFullscreen=()=>{
+        if(detailFullscreen.hidden)return;
+        overviewWrap.insertAdjacentElement('afterend',detailWrap);
+        detailWrap.classList.remove('is-fullscreen');
+        detailWrap.classList.add('is-preview');
+        detailWrap.style.removeProperty('--launch-fullscreen-scale');
+        detailWrap.style.removeProperty('--launch-fullscreen-width');
+        detailFullscreen.hidden=true;
+        document.body.classList.remove('launch-detail-fullscreen-open');
+        requestAnimationFrame(syncPreview);
+      };
+      const openDetailFullscreen=()=>{
+        if(detailWrap.hidden||detailWrap.classList.contains('is-fullscreen'))return;
+        detailWrap.classList.remove('is-preview');
+        detailWrap.classList.add('is-fullscreen');
+        detailWrap.style.height='';
+        detailFullscreen.append(detailWrap);
+        detailFullscreen.hidden=false;
+        document.body.classList.add('launch-detail-fullscreen-open');
+        requestAnimationFrame(syncFullscreen);
+      };
+      detailWrap.classList.add('is-preview');
+      detailWrap.setAttribute('title','单击放大全屏查看细项排期');
+      detailWrap.addEventListener('click',openDetailFullscreen);
+      detailFullscreen.addEventListener('click',closeDetailFullscreen);
+      window.addEventListener('resize',()=>{syncPreview();syncFullscreen()});
+      document.addEventListener('keydown',event=>{
+        if(event.key==='Escape')closeDetailFullscreen();
+      });
       const [overviewTab,detailTab]=tabs.querySelectorAll('.launch-schedule-tab');
       const selectTab=(view)=>{
         const showDetail=view==='detail';
+        if(!showDetail)closeDetailFullscreen();
         overviewTab.setAttribute('aria-selected',String(!showDetail));
         detailTab.setAttribute('aria-selected',String(showDetail));
         overviewWrap.hidden=showDetail;
         detailWrap.hidden=!showDetail;
+        if(showDetail)requestAnimationFrame(syncPreview);
       };
       overviewTab.addEventListener('click',()=>selectTab('overview'));
       detailTab.addEventListener('click',()=>selectTab('detail'));
