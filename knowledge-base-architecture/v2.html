@@ -1,0 +1,1029 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%232c5fa4'/%3E%3Cpath d='M9 8h14v3H9zm0 6h14v3H9zm0 6h9v3H9z' fill='white'/%3E%3C/svg%3E">
+  <title>知识库标准架构图v2</title>
+  <style>
+    :root {
+      --page: #edf0f3;
+      --paper: #ffffff;
+      --ink: #18222d;
+      --muted: #64717c;
+      --border: #c9d1d8;
+      --blue: #2c5fa4;
+      --blue-soft: #edf3fb;
+      --teal: #18777c;
+      --teal-soft: #e9f4f3;
+      --green: #3d754f;
+      --green-soft: #edf5ef;
+      --orange: #bc5727;
+      --orange-soft: #fbede6;
+      --gold: #79611b;
+      --gold-soft: #f7f1df;
+      --charcoal: #35424d;
+    }
+
+    * {
+      box-sizing: border-box;
+      letter-spacing: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      background: var(--page);
+      color: var(--ink);
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+    }
+
+    body {
+      overflow: hidden;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .app {
+      display: grid;
+      grid-template-rows: 68px minmax(0, 1fr);
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 0 20px;
+      border-bottom: 1px solid #d3d9df;
+      background: #fff;
+      z-index: 20;
+    }
+
+    .title-wrap {
+      min-width: 0;
+    }
+
+    .title-wrap h1 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+      font-weight: 800;
+    }
+
+    .title-wrap p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.3;
+    }
+
+    .tools {
+      display: flex;
+      gap: 6px;
+      flex: 0 0 auto;
+    }
+
+    .icon-button {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      border: 1px solid #c6ced5;
+      border-radius: 6px;
+      background: #fff;
+      color: #34414c;
+      cursor: pointer;
+      font-size: 19px;
+      line-height: 1;
+    }
+
+    .icon-button:hover,
+    .icon-button:focus-visible {
+      border-color: #66727d;
+      background: #f3f5f7;
+      outline: none;
+    }
+
+    .viewport {
+      min-width: 0;
+      min-height: 0;
+      overflow: auto;
+      padding: 16px;
+    }
+
+    .canvas {
+      width: max(1240px, calc(100vw - 32px));
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 22px 24px 24px;
+      border: 1px solid #d1d7dd;
+      background: var(--paper);
+      box-shadow: 0 8px 28px rgba(25, 36, 46, 0.09);
+    }
+
+    .canvas-head {
+      display: grid;
+      grid-template-columns: minmax(470px, 1fr) minmax(420px, 0.85fr);
+      gap: 34px;
+      align-items: start;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #d9dfe4;
+    }
+
+    .kicker {
+      margin: 0 0 5px;
+      color: #54616c;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .canvas-head h2 {
+      margin: 0;
+      font-size: 25px;
+      line-height: 1.32;
+      font-weight: 800;
+    }
+
+    .canvas-head .conclusion {
+      margin: 3px 0 0;
+      color: #4f5c67;
+      font-size: 12px;
+      line-height: 1.72;
+      text-align: right;
+    }
+
+    .architecture {
+      margin-top: 18px;
+    }
+
+    .layer-row,
+    .connector-row {
+      display: grid;
+      grid-template-columns: 140px minmax(0, 1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .layer-label {
+      display: grid;
+      place-items: center;
+      min-height: 100%;
+      padding: 15px 12px;
+      border: 2px solid var(--blue);
+      background: #fff;
+      color: #22334a;
+      font-size: 16px;
+      line-height: 1.4;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .layer-content {
+      min-width: 0;
+    }
+
+    .agent-layer {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 360px));
+      justify-content: center;
+      gap: 24px;
+      padding: 0 9%;
+    }
+
+    .agent-card,
+    .knowledge-card,
+    .process-card,
+    .source-card {
+      border-radius: 6px;
+    }
+
+    .agent-card {
+      min-height: 126px;
+      padding: 15px 16px;
+      border: 2px solid var(--blue);
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .agent-card:hover,
+    .agent-card:focus-visible {
+      border-color: #173f75;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(44, 95, 164, 0.10);
+    }
+
+    .agent-role,
+    .card-status {
+      display: inline-block;
+      margin-bottom: 7px;
+      padding: 3px 6px;
+      border-radius: 3px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-size: 9px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .agent-card h3,
+    .knowledge-card h3,
+    .process-card h3,
+    .source-card h3 {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.35;
+      font-weight: 800;
+    }
+
+    .agent-card p,
+    .knowledge-card p,
+    .process-card p,
+    .source-card p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.55;
+    }
+
+    .mini-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 9px;
+    }
+
+    .mini-tags span {
+      padding: 4px 6px;
+      border: 1px solid #d3dae0;
+      border-radius: 3px;
+      background: #f5f7f8;
+      color: #45525e;
+      font-size: 8px;
+      line-height: 1.2;
+    }
+
+    .connector-row {
+      height: 58px;
+    }
+
+    .connector-label-space {
+      position: relative;
+    }
+
+    .connector-label-space::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      border-left: 1px dashed #bec6cd;
+    }
+
+    .connector-lines {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 72px;
+      min-width: 0;
+    }
+
+    .vertical-flow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 220px;
+      color: var(--blue);
+      font-size: 10px;
+      line-height: 1.3;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .vertical-flow.return {
+      color: var(--orange);
+    }
+
+    .vertical-flow .arrow {
+      display: grid;
+      place-items: center;
+      width: 26px;
+      height: 38px;
+      border-right: 2px solid currentColor;
+      font-size: 21px;
+      line-height: 1;
+    }
+
+    .knowledge-layer {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr)) minmax(0, 1.1fr);
+      gap: 8px;
+    }
+
+    .knowledge-card {
+      min-height: 248px;
+      padding: 13px 11px;
+      border: 1.5px solid #8facd1;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .knowledge-card:hover,
+    .knowledge-card:focus-visible {
+      border-color: var(--blue);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(44, 95, 164, 0.09);
+    }
+
+    .knowledge-card .card-status {
+      margin-bottom: 9px;
+      background: #f1f5fa;
+    }
+
+    .knowledge-card ul,
+    .process-card ul,
+    .source-card ul {
+      margin: 10px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .knowledge-card li,
+    .process-card li,
+    .source-card li {
+      position: relative;
+      margin-top: 7px;
+      padding-left: 12px;
+      color: #3f4c57;
+      font-size: 9px;
+      line-height: 1.5;
+    }
+
+    .knowledge-card li::before,
+    .process-card li::before,
+    .source-card li::before {
+      content: "";
+      position: absolute;
+      top: 0.62em;
+      left: 0;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .process-card.work .numbered-list {
+      padding-left: 18px;
+      list-style: decimal;
+    }
+
+    .process-card.work .numbered-list li {
+      padding-left: 2px;
+    }
+
+    .process-card.work .numbered-list li::before {
+      display: none;
+    }
+
+    .knowledge-card.customer {
+      border-color: #6da4a4;
+    }
+
+    .knowledge-card.customer .card-status {
+      background: var(--teal-soft);
+      color: var(--teal);
+    }
+
+    .knowledge-card.case {
+      border-color: #75a27f;
+    }
+
+    .knowledge-card.case .card-status {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .knowledge-card.strategy {
+      border: 2px dashed #a98c39;
+      background: var(--gold-soft);
+    }
+
+    .knowledge-card.strategy .card-status {
+      background: rgba(255, 255, 255, 0.66);
+      color: var(--gold);
+    }
+
+    .formula {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(121, 97, 27, 0.23);
+      color: #5f4e1f;
+      font-size: 9px;
+      line-height: 1.55;
+      font-weight: 700;
+    }
+
+    .card-note {
+      margin-top: 12px;
+      padding-top: 9px;
+      border-top: 1px solid rgba(24, 119, 124, 0.24);
+      color: #2f6264;
+      font-size: 8px;
+      line-height: 1.5;
+      font-weight: 700;
+    }
+
+    .knowledge-card.case .card-note {
+      border-top-color: rgba(61, 117, 79, 0.24);
+      color: #416749;
+    }
+
+    .input-layer {
+      display: grid;
+      grid-template-columns: 1.25fr 0.82fr 1fr;
+      gap: 10px;
+    }
+
+    .process-card {
+      min-height: 168px;
+      padding: 14px;
+      border: 1.5px solid #8db29a;
+      background: var(--green-soft);
+      cursor: pointer;
+    }
+
+    .process-card.query {
+      border-color: #a9b3bc;
+      background: #f5f7f8;
+    }
+
+    .process-card.work {
+      border-color: #d09a79;
+      background: var(--orange-soft);
+    }
+
+    .process-card:hover,
+    .process-card:focus-visible {
+      border-color: #56636e;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(44, 58, 69, 0.08);
+    }
+
+    .process-strip {
+      display: flex;
+      align-items: stretch;
+      gap: 5px;
+      margin-top: 12px;
+    }
+
+    .process-strip span {
+      flex: 1;
+      min-width: 0;
+      padding: 7px 4px;
+      border: 1px solid rgba(61, 117, 79, 0.22);
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.74);
+      color: #355542;
+      font-size: 8px;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    .process-strip b {
+      display: grid;
+      place-items: center;
+      color: #66806e;
+      font-size: 11px;
+    }
+
+    .source-layer {
+      display: grid;
+      grid-template-columns: 1.2fr 0.82fr 1.18fr;
+      gap: 10px;
+    }
+
+    .source-card {
+      min-height: 176px;
+      padding: 14px;
+      border: 1.5px solid #77a6a8;
+      background: var(--teal-soft);
+      cursor: pointer;
+    }
+
+    .source-card.query {
+      border-color: #a8b2bb;
+      background: #f5f7f8;
+    }
+
+    .source-card.agent-data {
+      border-color: #ce9574;
+      background: var(--orange-soft);
+    }
+
+    .source-card:hover,
+    .source-card:focus-visible {
+      border-color: #53616c;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(44, 58, 69, 0.08);
+    }
+
+    .source-groups {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 11px;
+    }
+
+    .source-groups span {
+      padding: 7px 8px;
+      border: 1px solid rgba(24, 119, 124, 0.22);
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.70);
+      color: #315a5d;
+      font-size: 8px;
+      line-height: 1.4;
+    }
+
+    .boundary-note {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-left: 4px solid var(--orange);
+      background: #fff8f3;
+      color: #6d3b23;
+      font-size: 10px;
+      line-height: 1.65;
+    }
+
+    .legend {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid #dce1e6;
+      color: #68747f;
+      font-size: 9px;
+      line-height: 1.4;
+    }
+
+    .legend-items {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .legend-items span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .legend-items i {
+      width: 22px;
+      height: 0;
+      border-top: 3px solid;
+    }
+
+    .legend-items .blue {
+      color: var(--blue);
+    }
+
+    .legend-items .orange {
+      color: var(--orange);
+    }
+
+    .legend-items .gold {
+      border-top-style: dashed;
+      color: var(--gold);
+    }
+
+    .drawer-layer {
+      position: fixed;
+      inset: 68px 0 0;
+      display: none;
+      background: rgba(18, 27, 35, 0.30);
+      z-index: 50;
+    }
+
+    .drawer-layer.open {
+      display: block;
+    }
+
+    .drawer {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: min(430px, 92vw);
+      height: 100%;
+      padding: 24px 26px;
+      overflow: auto;
+      border-left: 1px solid #cbd2d8;
+      background: #fff;
+      box-shadow: -10px 0 28px rgba(21, 31, 40, 0.14);
+    }
+
+    .drawer-close {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+    }
+
+    .drawer-type {
+      margin: 0 44px 7px 0;
+      color: #6b7782;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .drawer h3 {
+      margin: 0 44px 11px 0;
+      font-size: 21px;
+      line-height: 1.35;
+    }
+
+    .drawer-summary {
+      margin: 0;
+      color: #53606b;
+      font-size: 12px;
+      line-height: 1.75;
+    }
+
+    .drawer h4 {
+      margin: 22px 0 8px;
+      padding-top: 15px;
+      border-top: 1px solid #dfe4e8;
+      font-size: 12px;
+    }
+
+    .drawer ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #394651;
+      font-size: 11px;
+      line-height: 1.85;
+    }
+
+    .drawer-boundary {
+      margin-top: 18px;
+      padding: 11px 13px;
+      border-left: 4px solid var(--orange);
+      background: var(--orange-soft);
+      color: #71391e;
+      font-size: 11px;
+      line-height: 1.65;
+    }
+
+    [data-detail] {
+      transition: border-color 140ms ease, background-color 140ms ease, box-shadow 140ms ease;
+    }
+
+    @media (max-width: 720px) {
+      .app {
+        grid-template-rows: 60px minmax(0, 1fr);
+      }
+
+      .topbar {
+        padding: 0 11px;
+      }
+
+      .title-wrap h1 {
+        max-width: 240px;
+        overflow: hidden;
+        font-size: 15px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .title-wrap p,
+      #printPage {
+        display: none;
+      }
+
+      .viewport {
+        padding: 10px;
+      }
+
+      .canvas {
+        min-width: 1240px;
+      }
+
+      .drawer-layer {
+        inset: 60px 0 0;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A3 landscape;
+        margin: 8mm;
+      }
+
+      body {
+        overflow: visible;
+        background: #fff;
+      }
+
+      .app {
+        display: block;
+        width: auto;
+        height: auto;
+      }
+
+      .topbar,
+      .drawer-layer {
+        display: none !important;
+      }
+
+      .viewport {
+        overflow: visible;
+        padding: 0;
+      }
+
+      .canvas {
+        width: 1600px;
+        max-width: none;
+        border: 0;
+        box-shadow: none;
+        zoom: 0.82;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="title-wrap">
+        <h1>知识库标准架构图v2</h1>
+        <p>自下而上看清数据来源、知识生成、前台使用与业务回流</p>
+      </div>
+      <nav class="tools" aria-label="页面工具">
+        <button class="icon-button" id="printPage" type="button" title="打印" aria-label="打印">⎙</button>
+        <button class="icon-button" id="exportPdf" type="button" title="导出 PDF" aria-label="导出 PDF">⇩</button>
+        <button class="icon-button" id="fullScreen" type="button" title="全屏" aria-label="全屏">⛶</button>
+      </nav>
+    </header>
+
+    <section class="viewport">
+      <article class="canvas">
+        <header class="canvas-head">
+          <div>
+            <p class="kicker">V2 STRUCTURE DRAFT · 2026.09.08</p>
+            <h2>知识库的核心，是把多种数据加工成前台真正能用的知识</h2>
+          </div>
+          <p class="conclusion">底层保存来源与工作记录，中间完成治理、查询和沉淀，上层形成六类可用知识；销售和用户运营Agent使用知识，并把真实业务结果重新送回底层。</p>
+        </header>
+
+        <section class="architecture" aria-label="四层知识库架构">
+          <section class="layer-row">
+            <div class="layer-label">业务 Agent</div>
+            <div class="layer-content agent-layer">
+              <article class="agent-card" data-detail="sales" tabindex="0" role="button">
+                <span class="agent-role">销售与商机侧</span>
+                <h3>销售 Agent</h3>
+                <p>从前台可用层获取依据，推进客户理解、方案生成、商务跟进与反馈回传。</p>
+                <div class="mini-tags"><span>公司业务咨询</span><span>客户信息咨询</span><span>案例检索</span><span>方案输出</span><span>流程预警</span><span>商机回传</span></div>
+              </article>
+              <article class="agent-card" data-detail="userops" tabindex="0" role="button">
+                <span class="agent-role">经营交付侧</span>
+                <h3>用户运营 Agent</h3>
+                <p>围绕客户目标形成经营策略，组织活动与精准执行，并沉淀经营交付记录。</p>
+                <div class="mini-tags"><span>生意策略</span><span>经营规划</span><span>活动执行子Agent</span><span>精准营销子Agent</span><span>复盘与质检</span></div>
+              </article>
+            </div>
+          </section>
+
+          <section class="connector-row" aria-label="Agent与前台可用层关系">
+            <div class="connector-label-space"></div>
+            <div class="connector-lines">
+              <div class="vertical-flow"><span class="arrow">↑</span><span>前台知识调用<br>形成建议、方案与策略</span></div>
+              <div class="vertical-flow return"><span class="arrow">↓</span><span>商机、执行、效果与反馈<br>回到工作沉淀</span></div>
+            </div>
+          </section>
+
+          <section class="layer-row">
+            <div class="layer-label">前台可用层</div>
+            <div class="layer-content knowledge-layer">
+              <article class="knowledge-card" data-detail="channel" tabindex="0" role="button">
+                <span class="card-status">前置发现</span>
+                <h3>销售渠道拓展</h3>
+                <ul><li>展会事前情报</li><li>潜在线索与客户</li><li>渠道合作入口</li><li>销售计划窗口</li></ul>
+              </article>
+              <article class="knowledge-card" data-detail="company" tabindex="0" role="button">
+                <span class="card-status">低频维护</span>
+                <h3>公司介绍</h3>
+                <ul><li>公司定位与能力</li><li>资质与组织信息</li><li>通用销售资料</li><li>跨业务线统一口径</li></ul>
+              </article>
+              <article class="knowledge-card" data-detail="business" tabindex="0" role="button">
+                <span class="card-status">定期维护</span>
+                <h3>业务线</h3>
+                <ul><li>业务线介绍</li><li>产品与服务</li><li>报价、政策与资料</li><li>SOP与业务玩法</li><li>竞品动态调研</li></ul>
+              </article>
+              <article class="knowledge-card customer" data-detail="customer" tabindex="0" role="button">
+                <span class="card-status">实时 + 动态生成</span>
+                <h3>客户档案</h3>
+                <ul><li>A 基础档案：OA / CRM</li><li>B 主动洞察：需求、决策、诊断与生意策略</li><li>C 公开动态：官网、公众号等</li><li>D 数据报告和关键指标查询：数据查询助手</li></ul>
+                <div class="card-note">客户决策模式由agent工作沉淀的1/2/3/4支撑</div>
+              </article>
+              <article class="knowledge-card case" data-detail="case" tabindex="0" role="button">
+                <span class="card-status">持续生成</span>
+                <h3>案例</h3>
+                <ul><li>客户背景与问题</li><li>目标、策略与执行</li><li>结果、复盘与证据</li><li>适用条件与场景</li><li>业务线 / 品类索引</li></ul>
+                <div class="card-note">案例由agent工作沉淀中的2/3两部分以及业务线案例+Alex的skill构成</div>
+              </article>
+              <article class="knowledge-card" data-detail="industry" tabindex="0" role="button">
+                <span class="card-status">技术采集为主</span>
+                <h3>行业动态</h3>
+                <ul><li>品类圈</li><li>展会事后信息</li><li>研究报告与行业垂媒</li><li>平台官方动向</li></ul>
+              </article>
+              <article class="knowledge-card strategy" data-detail="strategy" tabindex="0" role="button">
+                <span class="card-status">未来能力</span>
+                <h3>公司级销售策略</h3>
+                <ul><li>外部行业趋势</li><li>历史线索-&gt;成交转化参考（by业务线）</li><li>我们的优势：行业/品类客户资产；方法论</li></ul>
+                <div class="formula">外部行业趋势 + 历史线索-&gt;成交转化参考 + 行业/品类客户资产与方法论</div>
+              </article>
+            </div>
+          </section>
+
+          <section class="connector-row" aria-label="输入层与前台可用层关系">
+            <div class="connector-label-space"></div>
+            <div class="connector-lines">
+              <div class="vertical-flow"><span class="arrow">↑</span><span>治理后的知识发布<br>更新前台六类知识</span></div>
+              <div class="vertical-flow return"><span class="arrow">↓</span><span>使用反馈形成新事实<br>继续进入治理循环</span></div>
+            </div>
+          </section>
+
+          <section class="layer-row">
+            <div class="layer-label">输入与生成层</div>
+            <div class="layer-content input-layer">
+              <article class="process-card" data-detail="governance" tabindex="0" role="button">
+                <span class="card-status">面向标准源数据</span>
+                <h3>治理与知识生成</h3>
+                <p>保证进入前台的内容可信、可用、可追溯。</p>
+                <div class="process-strip"><span>来源<br>归属</span><b>→</b><span>去重<br>校验</span><b>→</b><span>权限<br>脱敏</span><b>→</b><span>结构<br>关联</span><b>→</b><span>提炼<br>生成</span><b>→</b><span>复核<br>发布</span></div>
+              </article>
+              <article class="process-card query" data-detail="queryContext" tabindex="0" role="button">
+                <span class="card-status">按需查询</span>
+                <h3>数据查询调用规则</h3>
+                <ul><li>明确品牌、周期与查询范围</li><li>优先调用标准指标与品牌标准化报表</li><li>经营明细按需查询，不整体写入知识库</li><li>返回结果同步口径与筛选条件</li><li>长期复用结论进入知识生成</li></ul>
+              </article>
+              <article class="process-card work" data-detail="workDeposit" tabindex="0" role="button">
+                <span class="card-status">真实工作持续产生</span>
+                <h3>Agent工作沉淀</h3>
+                <ol class="numbered-list"><li>销售Agent：销售建议+话术+反馈、商机、成交追踪</li><li>用户运营Agent经营交付记录：报告、复盘与PPT</li><li>执行子Agent数据：活动、精准数据</li><li>任务过程和客户反馈：内部执行记录、聊天记录、会议转写</li></ol>
+              </article>
+            </div>
+          </section>
+
+          <section class="connector-row" aria-label="数据源层与输入层关系">
+            <div class="connector-label-space"></div>
+            <div class="connector-lines">
+              <div class="vertical-flow"><span class="arrow">↑</span><span>来源登记后进入处理<br>不直接写入前台知识</span></div>
+              <div class="vertical-flow return"><span class="arrow">↓</span><span>保留原始记录与版本<br>支持复核和重新生成</span></div>
+            </div>
+          </section>
+
+          <section class="layer-row">
+            <div class="layer-label">数据源层</div>
+            <div class="layer-content source-layer">
+              <article class="source-card" data-detail="standardSources" tabindex="0" role="button">
+                <span class="card-status">可登记、可追溯</span>
+                <h3>标准源数据</h3>
+                <p>按产生场景管理源头，不再简单分成“原始”和“整理后”。</p>
+                <div class="source-groups"><span>人工维护<br>公司与业务线材料</span><span>OA / CRM<br>客户、商机与合同</span><span>技术采集<br>行业、品牌与平台</span><span>会议与补录<br>纪要、转写与反馈</span></div>
+              </article>
+              <article class="source-card query" data-detail="dataAssistant" tabindex="0" role="button">
+                <span class="card-status">独立工具</span>
+                <h3>数据查询助手</h3>
+                <p>连接内部数仓，查询订单、会员、经营指标、交付明细和品牌标准化报表。</p>
+                <ul><li>数据不整体搬入知识库</li><li>查询结果先作为任务上下文</li><li>长期复用结论再进入知识生成</li></ul>
+              </article>
+              <article class="source-card agent-data" data-detail="agentRecords" tabindex="0" role="button">
+                <span class="card-status">主要回流来源</span>
+                <h3>Agent工作记录</h3>
+                <p>同时覆盖销售反馈和用户运营经营交付，避免只记录交付、不记录销售采用结果。</p>
+                <div class="source-groups"><span>销售Agent<br>销售建议+话术+反馈、商机、成交追踪</span><span>用户运营Agent经营交付记录<br>报告、复盘与PPT</span><span>执行子Agent数据<br>活动、精准数据</span><span>任务过程和客户反馈<br>内部执行记录、聊天记录、会议转写</span></div>
+              </article>
+            </div>
+          </section>
+        </section>
+
+        <div class="boundary-note"><strong>四个层级的含义：</strong>数据源层保存可追溯的原始来源、数据查询入口与Agent工作记录；输入与生成层负责治理源数据、约束数据查询调用，并把工作记录加工为可复用知识；前台可用层按业务场景组织可直接调用的知识产品；业务Agent面向销售与用户运营任务使用知识、执行工作并回传新的事实与结果。</div>
+
+        <footer class="legend">
+          <div class="legend-items"><span><i class="blue"></i>知识发布与调用</span><span><i class="orange"></i>过程、结果与反馈回流</span><span><i class="gold"></i>尚未成熟的未来能力</span></div>
+          <span>点击任一模块查看完整口径与边界</span>
+        </footer>
+      </article>
+    </section>
+  </main>
+
+  <div class="drawer-layer" id="drawerLayer" aria-hidden="true">
+    <aside class="drawer" aria-labelledby="drawerTitle">
+      <button class="icon-button drawer-close" id="drawerClose" type="button" title="关闭" aria-label="关闭">×</button>
+      <p class="drawer-type" id="drawerType"></p>
+      <h3 id="drawerTitle"></h3>
+      <p class="drawer-summary" id="drawerSummary"></p>
+      <h4>主要内容</h4>
+      <ul id="drawerItems"></ul>
+      <div class="drawer-boundary" id="drawerBoundary"></div>
+    </aside>
+  </div>
+
+  <script>
+    (() => {
+      const details = {
+        sales: ["业务Agent", "销售 Agent", "面向客户和商机调用前台知识，并把实际采用和成交结果返回系统。", ["咨询公司业务信息", "咨询客户信息", "检索历史案例", "商务跟进与预警", "销售方案与话术输出", "客户反馈和商机回传"], "销售Agent不直接改写知识成品，新增事实先进入Agent工作记录。"],
+        userops: ["业务Agent", "用户运营 Agent", "围绕客户目标组织经营策略、执行和复盘，是经营交付事实的主要生产方。", ["维护客户生意策略", "识别目标、预算、库存和频控", "形成运营策略", "下发活动与精准任务", "监控执行并质检", "形成经营复盘"], "活动执行和精准营销作为执行子Agent，其结果同时返回主Agent并进入工作沉淀。"],
+        channel: ["前台可用知识", "销售渠道拓展", "将能够提前触发销售行动的信息转成渠道与线索支持。", ["展会事前情报", "参展主体和潜在线索", "销售跟进时间窗", "渠道合作入口"], "展会事前信息服务销售行动，展会结束后的报告和趋势进入行业动态。"],
+        company: ["前台可用知识", "公司介绍", "为销售和交付提供一致的公司认知与通用表达。", ["公司定位与能力", "通用资质", "组织与联系入口", "标准销售资料", "跨业务线统一口径"], "属于低频维护的稳定知识，不承载客户个性化和实时经营数据。"],
+        business: ["前台可用知识", "业务线", "按业务线组织可直接用于咨询、报价和方案设计的标准知识。", ["业务线介绍", "产品与服务", "报价、政策和销售资料", "SOP与业务玩法", "竞品动态调研"], "竞品动态按业务线维护；跨项目自动提炼的场景案例不放在业务线资料中，统一进入独立案例模块。"],
+        customer: ["前台可用知识", "客户档案", "由基础事实、主动洞察、公开动态和数据查询共同形成客户完整视图。", ["A 基础档案：OA与CRM主体事实", "B 主动洞察：需求模式、决策偏好、诊断规律和生意策略", "C 公开动态：品牌官网、公众号等", "D 数据报告和关键指标查询：数据查询助手"], "客户决策模式由agent工作沉淀的1/2/3/4支撑；主动洞察必须由这些事实持续校正。"],
+        case: ["前台可用知识", "案例", "把经营交付记录提炼成可检索、可比较、可用于方案组装的业务经验。", ["客户背景与问题", "目标、策略和执行过程", "结果、复盘和证据", "适用条件", "业务线、品类和场景索引", "来源构成：agent工作沉淀中的2/3两部分以及业务线案例+Alex的skill"], "月报、复盘和成果物保留为来源；完成提炼和审核后才成为案例。"],
+        industry: ["前台可用知识", "行业动态", "聚合公司层面能够规模化采集和持续更新的外部知识。", ["品类圈", "展会事后信息", "研究报告与行业垂媒", "平台官方渠道和方向性动向"], "品牌官网和公众号信息优先进入对应客户档案；业务线竞品信息由业务线维护。"],
+        strategy: ["未来能力", "公司级销售策略", "综合外部行业趋势、历史线索转化和公司已有资产，形成更前置的销售判断。", ["外部行业趋势", "历史线索->成交转化参考（by业务线）", "我们的优势：行业/品类客户资产；方法论"], "会上确认了方向，但具体产出形式和使用机制尚未成熟，因此使用虚线表示。"],
+        governance: ["输入与生成层", "治理与知识生成", "将标准源数据加工为可信、可用、可追溯的前台知识。", ["来源登记与归属", "去重、冲突与时效判断", "权限、品牌或店铺隔离和脱敏", "结构化与业务对象关联", "知识提炼与生成", "人工复核、发布和版本追溯"], "来源、重复关系或归属无法确认时进入治理待办，不直接发布。"],
+        queryContext: ["输入与生成层", "数据查询调用规则", "规定业务Agent在什么条件下、以什么口径调用数据查询助手。", ["明确品牌、周期与查询范围", "优先调用标准指标与品牌标准化报表", "经营明细按需查询，不整体写入知识库", "返回结果同步口径与筛选条件", "长期复用结论进入知识生成"], "查询结果只服务当前任务；只有经过业务解释且需要长期复用的结论，才进入知识生成流程。"],
+        workDeposit: ["输入与生成层", "Agent工作沉淀", "把Agent执行中的过程、结果和反馈记录为可治理的新事实。", ["1. 销售Agent：销售建议+话术+反馈、商机、成交追踪", "2. 用户运营Agent经营交付记录：报告、复盘与PPT", "3. 执行子Agent数据：活动、精准数据", "4. 任务过程和客户反馈：内部执行记录、聊天记录、会议转写"], "工作记录不能直接更新客户洞察和案例，必须经过治理、提炼与复核。"],
+        standardSources: ["数据源层", "标准源数据", "按数据产生的原因和场景管理源头，并保留来源证据。", ["人工维护的公司与业务线材料", "OA与CRM中的客户、商机和合同", "技术采集的行业、品牌和平台信息", "会议纪要、转写和人工补录"], "标准源数据是治理入口，不等同于已经可用的知识。"],
+        dataAssistant: ["数据源层关联工具", "数据查询助手", "独立连接内部数仓，解决订单、会员、经营指标、交付明细和品牌标准化报表的按需查询。", ["数据不整体搬入知识库", "查询结果作为任务上下文", "保留查询口径", "需要长期复用的结论再进入知识生成"], "数据查询和统一知识库是两个独立项目，在Agent执行时协同使用。"],
+        agentRecords: ["数据源层", "Agent工作记录", "完整保存销售和经营交付在真实工作中产生的过程与结果。", ["销售Agent：销售建议+话术+反馈、商机、成交追踪", "用户运营Agent经营交付记录：报告、复盘与PPT", "执行子Agent数据：活动、精准数据", "任务过程和客户反馈：内部执行记录、聊天记录、会议转写"], "Agent产生的是事实和结果；治理后才可能更新客户档案、案例或公司策略。"]
+      };
+
+      const layer = document.getElementById("drawerLayer");
+      const close = document.getElementById("drawerClose");
+      const type = document.getElementById("drawerType");
+      const title = document.getElementById("drawerTitle");
+      const summary = document.getElementById("drawerSummary");
+      const items = document.getElementById("drawerItems");
+      const boundary = document.getElementById("drawerBoundary");
+      let lastFocus = null;
+
+      function openDrawer(key, node) {
+        const detail = details[key];
+        if (!detail) return;
+        lastFocus = node;
+        type.textContent = detail[0];
+        title.textContent = detail[1];
+        summary.textContent = detail[2];
+        items.innerHTML = detail[3].map((item) => `<li>${item}</li>`).join("");
+        boundary.innerHTML = `<strong>边界：</strong>${detail[4]}`;
+        layer.classList.add("open");
+        layer.setAttribute("aria-hidden", "false");
+        close.focus();
+      }
+
+      function closeDrawer() {
+        layer.classList.remove("open");
+        layer.setAttribute("aria-hidden", "true");
+        lastFocus?.focus();
+      }
+
+      document.querySelectorAll("[data-detail]").forEach((node) => {
+        node.addEventListener("click", () => openDrawer(node.dataset.detail, node));
+        node.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openDrawer(node.dataset.detail, node);
+          }
+        });
+      });
+
+      close.addEventListener("click", closeDrawer);
+      layer.addEventListener("click", (event) => {
+        if (event.target === layer) closeDrawer();
+      });
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && layer.classList.contains("open")) closeDrawer();
+      });
+      document.getElementById("printPage").addEventListener("click", () => window.print());
+      document.getElementById("exportPdf").addEventListener("click", () => {
+        const originalTitle = document.title;
+        document.title = "知识库标准架构图v2";
+        window.print();
+        window.setTimeout(() => { document.title = originalTitle; }, 1200);
+      });
+      document.getElementById("fullScreen").addEventListener("click", async () => {
+        if (!document.fullscreenElement) await document.documentElement.requestFullscreen?.();
+        else await document.exitFullscreen?.();
+      });
+    })();
+  </script>
+</body>
+</html>
