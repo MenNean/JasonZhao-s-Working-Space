@@ -1,0 +1,7 @@
+interface:
+  display_name: "SAP Exam"
+  short_description: "Answer SAP Emarsys exam questions from local notes."
+  default_prompt: "Use $sap-exam to answer this SAP Emarsys exam screenshot."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,587 @@
+{
+  "snapshot_date": "2026-10-26",
+  "scope": "本机配置与文件盘点；未导出凭据、会话数据库或知识库正文",
+  "skills": [
+    {
+      "name": "imagegen",
+      "description": "Generate or edit raster images when the task benefits from AI-created bitmap visuals such as photos, illustrations, textures, sprites, mockups, or transparent-background cutouts. Use when Codex should create a brand-new image, transform an existing image, or derive visual variants from references, and the output should be a bitmap asset rather than repo-native code or vector. Do not use when the task is better handled by editing existing SVG/vector/code-native assets, extending an established icon or logo system, or building the visual directly in HTML/CSS/canvas.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\.system\\imagegen\\SKILL.md",
+      "origin": "系统技能",
+      "plugin": null,
+      "sha256": "706d4d96e1d5c9e6023fe3ccabba1bb34b364024d344fd25b8515ec7d28fe3c4"
+    },
+    {
+      "name": "openai-docs",
+      "description": "Use for Codex models/pricing, scheduled tasks, skills, settings, setup, troubleshooting, customization, automations, and self-knowledge—including 'you,' 'your,' 'this app,' or 'this coding agent' when they refer to Codex—and for OpenAI APIs/products and ChatGPT Work. Also use for model choice/migration, prompting, SDKs, Responses, Realtime, agents, evals, and Chat/Work/Codex comparisons. Do not use for generic app/software tasks that merely mention Codex.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\.system\\openai-docs\\SKILL.md",
+      "origin": "系统技能",
+      "plugin": null,
+      "sha256": "8ce8021101bcea594ff92ee6cfd8ca7641a49ee66d7bc6070555f1a33fc239d9"
+    },
+    {
+      "name": "review-agent",
+      "description": "Perform a read-only, defect-first review of a specified code change and return every actionable finding. Use when another agent delegates review of uncommitted changes, a base-branch diff, a commit, or custom review instructions.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\.system\\review-agent\\SKILL.md",
+      "origin": "系统技能",
+      "plugin": null,
+      "sha256": "bb46315f6bc4b7051c05f807d19b1689b20418ac6c42590406d805c10fa2fd1a"
+    },
+    {
+      "name": "skill-creator",
+      "description": "Create or update a Codex skill with appropriately scoped instructions and any needed supporting resources.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\.system\\skill-creator\\SKILL.md",
+      "origin": "系统技能",
+      "plugin": null,
+      "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288"
+    },
+    {
+      "name": "skill-installer",
+      "description": "Install Codex skills into $CODEX_HOME/skills from a curated list or a GitHub repo path. Use when a user asks to list installable skills, install a curated skill, or install a skill from another repo (including private repos).",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\.system\\skill-installer\\SKILL.md",
+      "origin": "系统技能",
+      "plugin": null,
+      "sha256": "2892d8b2fb11631132118f340aed80ae17e59d5a571fc2c4f4a4a7e73f139d52"
+    },
+    {
+      "name": "audio-transcriber",
+      "description": "Transcribe local audio or extracted video audio into timestamped Markdown, SRT, and JSON outputs using faster-whisper when available. Use when the user asks for 录音转写, 音频转文字, transcription, speech-to-text, meeting/call transcript, subtitle generation, or speaker-labeled Chinese audio; supports optional male/female speaker mapping such as 男的是我、女的是JoJo.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\audio-transcriber\\SKILL.md",
+      "origin": "个人技能",
+      "plugin": null,
+      "sha256": "654fd7730bef9cdb5d2fc3df1373dd290ccf4f6b82bb639f64f4fee66e8a60ea"
+    },
+    {
+      "name": "bi-digital-employee",
+      "description": "Use when Codex should act as the first-version BI digital employee built from project4-AI-BI-engineer: understand Chinese BI/business metric questions, decide whether to ask clarifying questions, map fuzzy business wording to metrics/segments/fields, apply global variables and memory rules, generate explainable ClickHouse SQL from the project4 knowledge base, or validate a BI question against existing test cases. Trigger for AI-BI, BI数字员工, 查数, 指标查询, SQL生成, 新客/老客/会员/TTL/复购/连带, project4 knowledge base, or skill debugging for this BI workflow.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\bi-digital-employee\\SKILL.md",
+      "origin": "个人技能",
+      "plugin": null,
+      "sha256": "1fcfbe60c74989d4f85ac9f91ba8b85bc1b54251b5cffd9d2fe53db0d0ac9d46"
+    },
+    {
+      "name": "brainstorming",
+      "description": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\brainstorming\\SKILL.md",
+      "origin": "个人技能",
+      "plugin": null,
+      "sha256": "bba47904a7f6bbee3bf8a107ebbe84e65d392be683bbb898ded736b29e415f90"
+    },
+    {
+      "name": "frontend-design-codex",
+      "description": "Create distinctive, production-grade frontend interfaces in Codex. Use when the user asks to build, redesign, restyle, modernize, or visually polish web components, pages, dashboards, apps, prototypes, games, hero sections, or existing UI, especially when they want non-generic AI aesthetics, strong typography, color, motion, layout, responsive behavior, and browser-verified implementation.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\frontend-design\\SKILL.md",
+      "origin": "个人技能",
+      "plugin": null,
+      "sha256": "0174038854a48dc0251e833def8983f0bcdf7f1633f228aa0ceb6b9f3215a140"
+    },
+    {
+      "name": "hatch-pet",
+      "description": "Create, repair, validate, visually QA, and package Codex-compatible v2 animated pets from character art, generated images, company or prospect brand cues, or visual references. Use for any new Codex pet, custom mascot, non-pixel pet style, brand-inspired pet, existing-pet repair, or 8x11 spritesheet workflow requiring all 9 standard animation rows, 16 look directions, deterministic assembly, QA artifacts, and spriteVersionNumber 2 packaging.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\hatch-pet\\SKILL.md",
+      "origin": "个人技能",
+      "plugin": null,
+      "sha256": "ac22ec3cbabc95ba03ee3d7cf43a1209fcd139d56c69d35b10c57b9b5f794da0"
+    },
+    {
+      "name": "json-canvas",
+      "description": "Create and edit JSON Canvas files (.canvas) with nodes, edges, groups, and connections. Use when working with .canvas files, creating visual canvases, mind maps, flowcharts, or when the user mentions Canvas files in Obsidian.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\json-canvas\\SKILL.md",
+      "origin": "个人技能",
+      "plugin": null,
+      "sha256": "97d1ae0728955c4203922753d5656890e5e4dd371b8306ea11884f9b510f1b85"
+    },
+    {
+      "name": "obsidian-bases",
+      "description": "Create and edit Obsidian Bases (.base files) with views, filters, formulas, and summaries. Use when working with .base files, creating database-like views of notes, or when the user mentions Bases, table views, card views, filters, or formulas in Obsidian.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\obsidian-bases\\SKILL.md",
+      "origin": "个人技能",
+      "plugin": null,
+      "sha256": "c0037f20926c7d8591cdd040365e4c0e4c0c4146386a506f28f241faee9a27d9"
+    },
+    {
+      "name": "obsidian-cli",
+      "description": "Interact with Obsidian vaults using the Obsidian CLI to read, create, search, and manage notes, tasks, properties, and more. Also supports plugin and theme development with commands to reload plugins, run JavaScript, capture errors, take screenshots, and inspect the DOM. Use when the user asks to interact with their Obsidian vault, manage notes, search vault content, perform vault operations from the command line, or develop and debug Obsidian plugins and themes.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\obsidian-cli\\SKILL.md",
+      "origin": "个人技能",
+      "plugin": null,
+      "sha256": "b54257cdc0e5d04488b35b0c797bfe427b24359f0848d3c73924dcacf8da6358"
+    },
+    {
+      "name": "obsidian-markdown",
+      "description": "Create and edit Obsidian Flavored Markdown with wikilinks, embeds, callouts, properties, and other Obsidian-specific syntax. Use when working with .md files in Obsidian, or when the user mentions wikilinks, callouts, frontmatter, tags, embeds, or Obsidian notes.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\obsidian-markdown\\SKILL.md",
+      "origin": "个人技能",
+      "plugin": null,
+      "sha256": "7ad72e1f0a9081ed325e76b6402ad5de50a00e63e2341fd403a92f147234a007"
+    },
+    {
+      "name": "pdf",
+      "description": "Use when tasks involve reading, creating, or reviewing PDF files where rendering and layout matter; prefer visual checks by rendering pages (Poppler) and use Python tools such as `reportlab`, `pdfplumber`, and `pypdf` for generation and extraction.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\pdf\\SKILL.md",
+      "origin": "个人技能",
+      "plugin": null,
+      "sha256": "724b72c932053fd87133144405b00fbeec30285ee770168328c8f591ec89c134"
+    },
+    {
+      "name": "playwright",
+      "description": "Use when the task requires automating a real browser from the terminal (navigation, form filling, snapshots, screenshots, data extraction, UI-flow debugging) via `playwright-cli` or the bundled wrapper script.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\playwright\\SKILL.md",
+      "origin": "个人技能",
+      "plugin": null,
+      "sha256": "c52cc95125b720cdc3c9829b0294c2752d4ae9b85a5282aa153da8bba929af87"
+    },
+    {
+      "name": "project-execution-framework",
+      "description": "Execute project-style tasks through a repeatable delivery loop: plan the work in playbook.md, create or update task scripts under scripts/, run them to produce output/, inspect results against acceptance criteria, iterate until valid, and summarize the final delivery. Use when Codex needs a structured project execution workflow, especially for tasks that should leave reusable planning, scripts, generated artifacts, logs, or traceable outputs in a project folder.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\project-execution-framework\\SKILL.md",
+      "origin": "个人技能",
+      "plugin": null,
+      "sha256": "1dd53e699f303656298cbc2125efa70a97341f70928561c6466e97a4c50418f3"
+    },
+    {
+      "name": "ragflow-kb-ops",
+      "description": "Set up and operate a RAGFlow knowledge base end to end. Includes first-time onboarding on a fresh instance (connectivity check, listing the models the instance actually has, creating the dataset and the memory store), then normalize legacy local files, upload and parse them idempotently, apply document metadata, run dataset-level RAPTOR/GraphRAG indexing, and wire the dataset into an Agent canvas with knowledge-base retrieval, memory retrieval and memory saving. Use when the work involves a RAGFlow dataset, its chunking/index configuration, or a RAGFlow agent/canvas; not for generic RAG design outside RAGFlow.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\ragflow-kb-ops\\SKILL.md",
+      "origin": "个人技能",
+      "plugin": null,
+      "sha256": "d4700d1238f2a2b9b9f68445387fac84d1bee355af748ed89e0e8f565328a71f"
+    },
+    {
+      "name": "relationship-architecture-diagram",
+      "description": "Create or revise dense HTML relationship architecture diagrams when business modules need orthogonal connectors, scoped dashed boundaries, route highlighting, and browser-verified delivery. Do not use for quick Mermaid diagrams or presentation-only sketches.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\relationship-architecture-diagram\\SKILL.md",
+      "origin": "个人技能",
+      "plugin": null,
+      "sha256": "68bbbf2a09fab7ee02987a8caa75992a10c7c64da497d92cee5530ccba933aef"
+    },
+    {
+      "name": "sap-exam",
+      "description": "Answer SAP Emarsys open-book exam questions from screenshots or copied text, especially Chinese oral short-answer questions about implementation, account/user management, data onboarding, external data inputs, integrations, and configuration. Use the bundled Emarsys training knowledge base and examiner feedback first; use the QA file only as optional supporting memory for old multiple-choice questions.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\sap-exam\\SKILL.md",
+      "origin": "个人技能",
+      "plugin": null,
+      "sha256": "3a78ffb6056ad462097db9edcd1594050bc5b4ebb29cc5cec1db3d24103ea10c"
+    },
+    {
+      "name": "design-taste-frontend",
+      "description": "Anti-slop frontend skill for landing pages, portfolios, and redesigns. The agent reads the brief, infers the right design direction, and ships interfaces that do not look templated. Real design systems when applicable, audit-first on redesigns, strict pre-flight check.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\taste-skill\\SKILL.md",
+      "origin": "个人技能",
+      "plugin": null,
+      "sha256": "aa194351b246b8b4799099d4ed7b033d29eab6e6e3d58d8d2172978be7b3ec89"
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "description": "UI/UX design intelligence for web and mobile. Includes 50+ styles, 161 color palettes, 57 font pairings, 161 product types, 99 UX guidelines, and 25 chart types across 10 stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, Tailwind, shadcn/ui, and HTML/CSS). Actions: plan, build, create, design, implement, review, fix, improve, optimize, enhance, refactor, and check UI/UX code. Projects: website, landing page, dashboard, admin panel, e-commerce, SaaS, portfolio, blog, and mobile app. Elements: button, modal, navbar, sidebar, card, table, form, and chart. Styles: glassmorphism, claymorphism, minimalism, brutalism, neumorphism, bento grid, dark mode, responsive, skeuomorphism, and flat design. Topics: color systems, accessibility, animation, layout, typography, font pairing, spacing, interaction states, shadow, and gradient. Integrations: shadcn/ui MCP for component search and examples.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\skills\\ui-ux-pro-max\\SKILL.md",
+      "origin": "个人技能",
+      "plugin": null,
+      "sha256": "f571a0ab228ad3ad3ac41a51c2c3450a9edb6ac3eb65f16baf5b459d01d53689"
+    },
+    {
+      "name": "computer-use",
+      "description": "Control Windows apps from ChatGPT",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-bundled\\computer-use\\26.1021.31345\\skills\\computer-use\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "computer-use@openai-bundled",
+      "sha256": "8211e4b11a19a0dc4f0ace91096c74c5b36037ca4cb2c8988f0f535bb209e951"
+    },
+    {
+      "name": "documents",
+      "description": "Create, edit, redline, and comment on `.docx`, Word, and Google Docs-targeted document artifacts inside the container, with a strict render-and-verify workflow. Use `render_docx.py` to generate page PNGs (and optional PDF) for visual QA, then iterate until layout is flawless before delivering the final document.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-primary-runtime\\documents\\26.905.11957\\skills\\documents\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "documents@openai-primary-runtime",
+      "sha256": "8ab26c226c6e4919989185934c44091d89dd67c9e86c1b960c3fd8f08dd90ed2"
+    },
+    {
+      "name": "excel-live-control",
+      "description": "Control an open or active Microsoft Excel workbook through the ChatGPT add-in or connected session. Use when the user tags the Microsoft Excel app in Codex or follows up on an established live Excel task. Do not use for standalone spreadsheet files or Google Sheets.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-primary-runtime\\spreadsheets\\26.905.11957\\skills\\excel-live-control\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "spreadsheets@openai-primary-runtime",
+      "sha256": "dde282af0ea3e186b04830a1255ce0eeade63042d53a2516ccb4c816986467a2"
+    },
+    {
+      "name": "Spreadsheets",
+      "description": "Use skill when user requests to create, modify, analyze, visualize, or work with spreadsheet files (`.xlsx`, `.xls`, `.csv`, `.tsv`) or Google Sheets with formulas, formatting, charts, tables, and recalculation. Do not use for live controlling Microsoft Excel app or a live Excel session.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-primary-runtime\\spreadsheets\\26.905.11957\\skills\\spreadsheets\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "spreadsheets@openai-primary-runtime",
+      "sha256": "b9d22e609239db30ad5a88452b71f9913d5baf4bac5c26864cbfcd8a455e8f5b"
+    },
+    {
+      "name": "Presentations",
+      "description": "Read, create or edit PowerPoint or Google Slides decks. Use for presentation, slide deck, PowerPoint, PPT, PPTX, or Google Slides requests.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-primary-runtime\\presentations\\26.905.11957\\skills\\presentations\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "presentations@openai-primary-runtime",
+      "sha256": "1491c1aa68c19ccc75e4eda7f7c66d664f8da503e376b31e4552310309446fba"
+    },
+    {
+      "name": "pdf",
+      "description": "Read, create, inspect, render, and verify PDF files where visual layout matters, including fillable AcroForms. Use Poppler rendering plus Python tools such as reportlab, pdfplumber, and pypdf for generation and extraction.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-primary-runtime\\pdf\\26.905.11957\\skills\\pdf\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "pdf@openai-primary-runtime",
+      "sha256": "9e429bfc5ada20ccf25a531484e3dcc5da59811d936a7cc5dfd23dbf2dfadd31"
+    },
+    {
+      "name": "template-creator",
+      "description": "Create or update a reusable personal Codex artifact-template skill. Use when the user invokes $template-creator or asks in natural language to create a reusable template from a reference document, presentation, spreadsheet, Google Docs, Slides, or Sheets link, ImageGen or Product Design image, email, Slack message, or Site project, or explicitly asks to edit or update a passed artifact-template skill. Do not use for one-off creation from an existing template.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-primary-runtime\\template-creator\\26.905.11957\\skills\\template-creator\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "template-creator@openai-primary-runtime",
+      "sha256": "244bfef01d3e17c6013952ccf34621a90ddfee9c7828058245c3c46f51114944"
+    },
+    {
+      "name": "figma-code-connect",
+      "description": "Creates and maintains Figma Code Connect template files that map Figma components to code snippets. Use when the user mentions Code Connect, Figma component mapping, design-to-code translation, or asks to create/update .figma.ts or .figma.js files.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\figma\\0722921d\\skills\\figma-code-connect\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "figma@openai-api-curated",
+      "sha256": "8ab45f7f158f9695ff58627ae950e89859abc58e99cd080ccacf384aca286485"
+    },
+    {
+      "name": "figma-create-new-file",
+      "description": "**MANDATORY prerequisite** — you MUST invoke this skill BEFORE every `create_new_file` tool call. NEVER call `create_new_file` directly without loading this skill first. Trigger whenever the user wants a new blank Figma file — a new design, FigJam, or Slides file — or when you need a fresh file before calling `use_figma`. Usage — /figma-create-new-file [editorType] [fileName] (e.g. /figma-create-new-file figjam My Whiteboard, /figma-create-new-file slides Q3 Review)",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\figma\\0722921d\\skills\\figma-create-new-file\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "figma@openai-api-curated",
+      "sha256": "3cf3be0571e342b3c8f13a969b2671294df857ab2b917d0e7b79d932c3daff29"
+    },
+    {
+      "name": "figma-design-to-code",
+      "description": "**MANDATORY prerequisite** — you MUST invoke this skill BEFORE calling the `get_design_context` Figma MCP tool. You MUST trigger this skill whenever the user wants to implement, build, port, or code up a Figma design as code. Example prompts (not exhaustive) are 'implement this Figma design', 'build this screen from Figma', 'turn this Figma into code', 'design to code'. This skill provides critical instructions and steps to the agent on how to correctly implement Figma designs in code and must NOT be skipped.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\figma\\0722921d\\skills\\figma-design-to-code\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "figma@openai-api-curated",
+      "sha256": "d025dd9783e261359f42aa230d85a882d8bb1aeed0336fa48aa3a564f3c6096c"
+    },
+    {
+      "name": "figma-generate-design",
+      "description": "Use this skill alongside figma-use when the task involves translating an application page, view, or multi-section layout into Figma. Triggers: 'write to Figma', 'create in Figma from code', 'push page to Figma', 'take this app/page and build it in Figma', 'create a screen', 'build a landing page in Figma', 'update the Figma screen to match code', 'convert this modal/dialog/drawer/panel to Figma'. This is the preferred workflow skill whenever the user wants to build or update a full page, modal, dialog, drawer, sidebar, panel, or any composed multi-section view in Figma from code or a description. Discovers design system components, variables, and styles from Code Connect files, existing screens, and library search, then imports them and assembles views incrementally section-by-section using design system tokens instead of hardcoded values.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\figma\\0722921d\\skills\\figma-generate-design\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "figma@openai-api-curated",
+      "sha256": "6aef0197c169193c5947e95cf20c14d806d8ee49c4bd82b628e281ec8a37d74f"
+    },
+    {
+      "name": "figma-generate-diagram",
+      "description": "MANDATORY prerequisite — load this skill BEFORE every `generate_diagram` tool call. NEVER call `generate_diagram` directly without loading this skill first. Trigger whenever the user asks to create, generate, draw, render, sketch, or build a diagram — flowchart, architecture diagram, sequence diagram, ERD or entity-relationship diagram, state diagram or state machine, gantt chart, or timeline. Also trigger when the user mentions Mermaid syntax or wants a system architecture, decision tree, dependency graph, API call flow, auth handshake, schema, or pipeline visualized in FigJam. Routes to type-specific guidance, sets universal Mermaid constraints, and tells you when to use a different diagram type or skip the tool entirely (mindmaps, pie charts, class diagrams, etc.).",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\figma\\0722921d\\skills\\figma-generate-diagram\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "figma@openai-api-curated",
+      "sha256": "0f2eab1454fac3c1fcde539fe07277cba248e2e79bc558601487e4195fd63570"
+    },
+    {
+      "name": "figma-generate-library",
+      "description": "Build or update a professional-grade design system in Figma from a codebase. Use when the user wants to create variables/tokens, build component libraries, create individual components with proper variant sets and variable bindings, set up theming (light/dark modes), document foundations, or reconcile gaps between code and Figma. Also use when the user asks to create or generate any component in Figma — even a single one — since components require proper variable foundations, variant states, and design token bindings to be production-quality. This skill teaches WHAT to build and in WHAT ORDER — it complements the `figma-use` skill which teaches HOW to call the Plugin API. Both skills should be loaded together.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\figma\\0722921d\\skills\\figma-generate-library\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "figma@openai-api-curated",
+      "sha256": "30ec309c6615064b04f7fc50452da5e8d66714fceae795b249a1c9ada87f4032"
+    },
+    {
+      "name": "figma-implement-motion",
+      "description": "Translates Figma motion and animations into production-ready application code. Use when implementing animation/motion from a Figma design — user mentions \"implement this motion\", \"add animation from Figma\", \"animate this component\", provides a Figma URL whose node is animated, or when `get_design_context` returns motion data or instructs you to call `get_motion_context`.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\figma\\0722921d\\skills\\figma-implement-motion\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "figma@openai-api-curated",
+      "sha256": "9276a50fd7e38be8abf932ec13372f26e508210fe1f0ec83a7c0b32098c7ad10"
+    },
+    {
+      "name": "figma-swiftui",
+      "description": "SwiftUI ↔ Figma translation. Use whenever the user mentions Swift, SwiftUI, iOS, iPhone, or iPad — in EITHER direction — translating a Figma design into SwiftUI (design → code), or pushing SwiftUI views / screens / tokens back into a Figma file (code → design). Triggers on phrases like 'implement this Figma design in SwiftUI', 'build this screen in Swift', 'push this SwiftUI view to Figma', 'mirror my Swift code in a Figma file', or whenever a Figma URL appears alongside `.swift` files / an `.xcodeproj`. Routes to a direction-specific reference doc; loads alongside `figma-use` for the code → design path.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\figma\\0722921d\\skills\\figma-swiftui\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "figma@openai-api-curated",
+      "sha256": "7100d677b8a996823e494ae8976cf420d4920e09ff1123c61f00a8f4f41a7467"
+    },
+    {
+      "name": "figma-use",
+      "description": "**MANDATORY prerequisite** — you MUST invoke this skill BEFORE every `use_figma` tool call. NEVER call `use_figma` directly without loading this skill first. Skipping it causes common, hard-to-debug failures. Trigger whenever the user wants to perform a write action or a unique read action that requires JavaScript execution in the Figma file context — e.g. create/edit/delete nodes, set up variables or tokens, build components and variants, modify auto-layout or fills, bind variables to properties, or inspect file structure programmatically.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\figma\\0722921d\\skills\\figma-use\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "figma@openai-api-curated",
+      "sha256": "c3178f445f85e6a64c858acd0c6d7ef9c6ad0bc323360167335f6aef0bbf699d"
+    },
+    {
+      "name": "figma-use-figjam",
+      "description": "This skill helps agents use Figma's use_figma MCP tool in the FigJam context. Can be used alongside figma-use which has foundational context for using the use_figma tool.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\figma\\0722921d\\skills\\figma-use-figjam\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "figma@openai-api-curated",
+      "sha256": "78d705531f8ba9cc17aaa9c16877701d15484a98bfc8ea422682cdddf61b3ebf"
+    },
+    {
+      "name": "figma-use-motion",
+      "description": "Motion / animation context for the `use_figma` MCP tool — animating Figma nodes via manual keyframes, animation styles, easing, and timeline duration. Load alongside figma-use whenever a task involves adding, editing, or inspecting animation on a node.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\figma\\0722921d\\skills\\figma-use-motion\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "figma@openai-api-curated",
+      "sha256": "73f9c883b04ecdb52d2ce573a81b7973624c85e9f61223b6f4ea811dad3161d2"
+    },
+    {
+      "name": "figma-use-slides",
+      "description": "This skill helps agents use Figma's use_figma MCP tool in the Slides context. Can be used alongside figma-use which has foundational context for using the use_figma tool.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\figma\\0722921d\\skills\\figma-use-slides\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "figma@openai-api-curated",
+      "sha256": "a318c8b57b84b7f5ecdf3f747c0ee184338093bee270077498fa2281688cfab1"
+    },
+    {
+      "name": "gsap",
+      "description": "GSAP animation reference for HyperFrames. Covers gsap.to(), from(), fromTo(), easing, stagger, defaults, timelines (gsap.timeline(), position parameter, labels, nesting, playback), and performance (transforms, will-change, quickTo). Use when writing GSAP animations in HyperFrames compositions.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\hyperframes\\0722921d\\skills\\gsap\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "hyperframes@openai-api-curated",
+      "sha256": "0ace76d56e2d2b021a7ee3f2ef7e69895cdef3b8787b58f4586e3959043ace17"
+    },
+    {
+      "name": "hyperframes",
+      "description": "Create video compositions, animations, title cards, overlays, captions, voiceovers, audio-reactive visuals, and scene transitions in HyperFrames HTML. Use when asked to build any HTML-based video content, add captions or subtitles synced to audio, generate text-to-speech narration, create audio-reactive animation (beat sync, glow, pulse driven by music), add animated text highlighting (marker sweeps, hand-drawn circles, burst lines, scribble, sketchout), or add transitions between scenes (crossfades, wipes, reveals, shader transitions). Covers composition authoring, timing, media, and the full video production workflow. For CLI commands (init, lint, preview, render, transcribe, tts) see the hyperframes-cli skill.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\hyperframes\\0722921d\\skills\\hyperframes\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "hyperframes@openai-api-curated",
+      "sha256": "b9125909126432cadf6ebe2bf57be78f26439aa5dac5b14e0dfaf7c3d8015da2"
+    },
+    {
+      "name": "hyperframes-cli",
+      "description": "HyperFrames CLI tool — hyperframes init, lint, inspect, preview, render, transcribe, tts, doctor, browser, info, upgrade, compositions, docs, benchmark. Use when scaffolding a project, linting, validating, inspecting visual layout in compositions, previewing in the studio, rendering to video, transcribing audio, generating TTS, or troubleshooting the HyperFrames environment.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\hyperframes\\0722921d\\skills\\hyperframes-cli\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "hyperframes@openai-api-curated",
+      "sha256": "4c56ecec7a01e48b31523b81c7819877daff9034509522c7dae76cbbabbf8982"
+    },
+    {
+      "name": "hyperframes-registry",
+      "description": "Install and wire registry blocks and components into HyperFrames compositions. Use when running hyperframes add, installing a block or component, wiring an installed item into index.html, or working with hyperframes.json. Covers the add command, install locations, block sub-composition wiring, component snippet merging, and registry discovery.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\hyperframes\\0722921d\\skills\\hyperframes-registry\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "hyperframes@openai-api-curated",
+      "sha256": "ef5008899d6154938f05384e4a51231cf1c20be02494e0c85538c4457fc5829b"
+    },
+    {
+      "name": "website-to-hyperframes",
+      "description": "|",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\hyperframes\\0722921d\\skills\\website-to-hyperframes\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "hyperframes@openai-api-curated",
+      "sha256": "ac62ba85b8ac6c834c359250e908e14bb18e4e278dcf98b2e9f2b05e3275ec1f"
+    },
+    {
+      "name": "visualize",
+      "description": "Create visualizations and interactive tools directly in conversation. Proactively use to show how something works; explore 'what happens when', 'what changes', or 'help me understand'; compare or inspect; create simulations, maps, charts, graphs, and mockups. Use standard tools for static scientific figures.",
+      "source": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-bundled\\visualize\\1.0.55\\skills\\visualize\\SKILL.md",
+      "origin": "插件技能",
+      "plugin": "visualize@openai-bundled",
+      "sha256": "e99b3dbd273d81a42ba20ed4b6e574435bdfa8ef4782f71f177a02fbe3871309"
+    }
+  ],
+  "plugins": [
+    {
+      "id": "chrome@openai-bundled",
+      "enabled_in_config": true,
+      "cached_versions": [
+        "26.1021.31345"
+      ],
+      "indexed_version": "26.1021.31345",
+      "path": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-bundled\\chrome\\26.1021.31345",
+      "version_basis": "缓存修改时间最新的非 latest 目录；非运行时版本断言"
+    },
+    {
+      "id": "computer-use@openai-bundled",
+      "enabled_in_config": true,
+      "cached_versions": [
+        "26.1021.31345"
+      ],
+      "indexed_version": "26.1021.31345",
+      "path": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-bundled\\computer-use\\26.1021.31345",
+      "version_basis": "缓存修改时间最新的非 latest 目录；非运行时版本断言"
+    },
+    {
+      "id": "documents@openai-primary-runtime",
+      "enabled_in_config": true,
+      "cached_versions": [
+        "26.905.11957"
+      ],
+      "indexed_version": "26.905.11957",
+      "path": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-primary-runtime\\documents\\26.905.11957",
+      "version_basis": "缓存修改时间最新的非 latest 目录；非运行时版本断言"
+    },
+    {
+      "id": "spreadsheets@openai-primary-runtime",
+      "enabled_in_config": true,
+      "cached_versions": [
+        "26.905.11957"
+      ],
+      "indexed_version": "26.905.11957",
+      "path": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-primary-runtime\\spreadsheets\\26.905.11957",
+      "version_basis": "缓存修改时间最新的非 latest 目录；非运行时版本断言"
+    },
+    {
+      "id": "presentations@openai-primary-runtime",
+      "enabled_in_config": true,
+      "cached_versions": [
+        "26.905.11957"
+      ],
+      "indexed_version": "26.905.11957",
+      "path": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-primary-runtime\\presentations\\26.905.11957",
+      "version_basis": "缓存修改时间最新的非 latest 目录；非运行时版本断言"
+    },
+    {
+      "id": "pdf@openai-primary-runtime",
+      "enabled_in_config": true,
+      "cached_versions": [
+        "26.905.11957"
+      ],
+      "indexed_version": "26.905.11957",
+      "path": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-primary-runtime\\pdf\\26.905.11957",
+      "version_basis": "缓存修改时间最新的非 latest 目录；非运行时版本断言"
+    },
+    {
+      "id": "template-creator@openai-primary-runtime",
+      "enabled_in_config": true,
+      "cached_versions": [
+        "26.905.11957"
+      ],
+      "indexed_version": "26.905.11957",
+      "path": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-primary-runtime\\template-creator\\26.905.11957",
+      "version_basis": "缓存修改时间最新的非 latest 目录；非运行时版本断言"
+    },
+    {
+      "id": "github@openai-api-curated",
+      "enabled_in_config": true,
+      "cached_versions": [
+        "0722921d"
+      ],
+      "indexed_version": "0722921d",
+      "path": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\github\\0722921d",
+      "version_basis": "缓存修改时间最新的非 latest 目录；非运行时版本断言"
+    },
+    {
+      "id": "figma@openai-api-curated",
+      "enabled_in_config": true,
+      "cached_versions": [
+        "0722921d"
+      ],
+      "indexed_version": "0722921d",
+      "path": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\figma\\0722921d",
+      "version_basis": "缓存修改时间最新的非 latest 目录；非运行时版本断言"
+    },
+    {
+      "id": "hyperframes@openai-api-curated",
+      "enabled_in_config": true,
+      "cached_versions": [
+        "0722921d"
+      ],
+      "indexed_version": "0722921d",
+      "path": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-api-curated\\hyperframes\\0722921d",
+      "version_basis": "缓存修改时间最新的非 latest 目录；非运行时版本断言"
+    },
+    {
+      "id": "visualize@openai-bundled",
+      "enabled_in_config": true,
+      "cached_versions": [
+        "1.0.55"
+      ],
+      "indexed_version": "1.0.55",
+      "path": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-bundled\\visualize\\1.0.55",
+      "version_basis": "缓存修改时间最新的非 latest 目录；非运行时版本断言"
+    },
+    {
+      "id": "browser@openai-bundled",
+      "enabled_in_config": true,
+      "cached_versions": [
+        "26.1021.31345"
+      ],
+      "indexed_version": "26.1021.31345",
+      "path": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-bundled\\browser\\26.1021.31345",
+      "version_basis": "缓存修改时间最新的非 latest 目录；非运行时版本断言"
+    },
+    {
+      "id": "codex-app-tools@openai-bundled",
+      "enabled_in_config": true,
+      "cached_versions": [
+        "0.1.6",
+        "26.1021.31345"
+      ],
+      "indexed_version": "26.1021.31345",
+      "path": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-bundled\\codex-app-tools\\26.1021.31345",
+      "version_basis": "缓存修改时间最新的非 latest 目录；非运行时版本断言"
+    },
+    {
+      "id": "unified-computer-use@openai-bundled",
+      "enabled_in_config": true,
+      "cached_versions": [
+        "26.1021.31345"
+      ],
+      "indexed_version": "26.1021.31345",
+      "path": "C:\\Users\\邓庆帅\\.codex\\plugins\\cache\\openai-bundled\\unified-computer-use\\26.1021.31345",
+      "version_basis": "缓存修改时间最新的非 latest 目录；非运行时版本断言"
+    }
+  ],
+  "mcp": [
+    {
+      "name": "node_repl",
+      "enabled_in_config": true,
+      "transport": "stdio",
+      "live_test": false
+    },
+    {
+      "name": "obsidian_memory",
+      "enabled_in_config": true,
+      "transport": "stdio",
+      "live_test": false,
+      "command": "C:\\Users\\邓庆帅\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "args": [
+        "C:\\Users\\邓庆帅\\Desktop\\赵浩森临时工作站\\全域解决方案部\\业务线文件\\2026项目\\codex\\obsidian_knowledge\\mcp\\obsidian_knowledge_mcp.py"
+      ]
+    }
+  ],
+  "knowledge_entries": [
+    {
+      "path": "C:\\Users\\邓庆帅\\Desktop\\赵浩森临时工作站\\全域解决方案部\\业务线文件\\2026项目\\codex",
+      "exists": true
+    },
+    {
+      "path": "C:\\Users\\邓庆帅\\Desktop\\赵浩森临时工作站\\全域解决方案部\\业务线文件\\2026项目\\codex\\个人知识库-纯知识库候选",
+      "exists": true
+    },
+    {
+      "path": "C:\\Users\\邓庆帅\\Desktop\\赵浩森临时工作站\\全域解决方案部\\业务线文件\\2026项目\\codex\\obsidian_knowledge",
+      "exists": true
+    },
+    {
+      "path": "C:\\Users\\邓庆帅\\Desktop\\赵浩森临时工作站\\全域解决方案部\\业务线文件\\2026项目\\codex\\obsidian_knowledge\\mcp\\obsidian_knowledge_mcp.py",
+      "exists": true
+    },
+    {
+      "path": "C:\\Users\\邓庆帅\\Desktop\\赵浩森临时工作站\\全域解决方案部\\业务线文件\\2026项目\\codex\\obsidian_knowledge\\scripts\\check_workspace_knowledge.py",
+      "exists": true
+    },
+    {
+      "path": "C:\\Users\\邓庆帅\\Desktop\\赵浩森临时工作站\\全域解决方案部\\业务线文件\\2026项目\\codex\\obsidian_knowledge\\scripts\\validate_knowledge_vault.py",
+      "exists": true
+    },
+    {
+      "path": "C:\\Users\\邓庆帅\\.codex\\skills\\bi-digital-employee\\references",
+      "exists": true
+    },
+    {
+      "path": "C:\\Users\\邓庆帅\\.codex\\skills\\sap-exam\\references",
+      "exists": true
+    }
+  ],
+  "dsh_runtime_docs": [
+    {
+      "source": "dsh/node_modules/@deepseek-ai/dsh-agent-instructions/README.md",
+      "local_copy": "C:\\Users\\邓庆帅\\Documents\\Codex\\2026-10-26\\new-chat\\work\\dsh-runtime-docs\\dsh__node_modules__@deepseek-ai__dsh-agent-instructions__README.md"
+    },
+    {
+      "source": "dsh/node_modules/@deepseek-ai/dsh-agent-instructions/README.zh.md",
+      "local_copy": "C:\\Users\\邓庆帅\\Documents\\Codex\\2026-10-26\\new-chat\\work\\dsh-runtime-docs\\dsh__node_modules__@deepseek-ai__dsh-agent-instructions__README.zh.md"
+    }
+  ]
+}

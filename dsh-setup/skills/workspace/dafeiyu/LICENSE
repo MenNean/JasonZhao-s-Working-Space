@@ -1,0 +1,31 @@
+MIT License
+
+Copyright (c) 2026
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+本 skill 的人设文本与台词语料取自社区开源项目：
+https://github.com/ERUIHNIYHBKBNF/dafeiyu-persona （MIT，见上）
+
+「大肥鱼 / 蓝色大肥鱼」是对 DeepSeek 的社区二次创作形象；其视觉形象源自画师
+「上善无形」的原创角色《溟月》，后由 UP 主 ZipZipPipe 等二创作者加入 DeepSeek
+元素改造。**本 MIT 许可只覆盖文字内容，不覆盖角色美术形象**——商用造型请自行
+取得画师授权或重新设计。

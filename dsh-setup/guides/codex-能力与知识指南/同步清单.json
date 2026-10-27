@@ -1,0 +1,64 @@
+{
+  "synced_at": "20261026-110630",
+  "output": "C:\\Users\\邓庆帅\\Documents\\Codex\\2026-10-26\\new-chat\\outputs\\Codex能力与知识指南-20261026",
+  "dsh_copy": "C:\\Users\\邓庆帅\\Desktop\\赵浩森临时工作站\\全域解决方案部\\业务线文件\\2026项目\\DeepseekHarness\\codex-能力与知识指南",
+  "skill_entry": "C:\\Users\\邓庆帅\\Desktop\\赵浩森临时工作站\\全域解决方案部\\业务线文件\\2026项目\\DeepseekHarness\\.dsh\\skills\\codex-capability-guide\\SKILL.md",
+  "agents": "C:\\Users\\邓庆帅\\Desktop\\赵浩森临时工作站\\全域解决方案部\\业务线文件\\2026项目\\DeepseekHarness\\AGENTS.md",
+  "backup_root": null,
+  "backed_up_existing": [],
+  "files": [
+    {
+      "file": "00-总览.md",
+      "sha256": "132af11bb0934039bc23545a7f56675564ecce7fbb2d1824170ce1c7b463614e"
+    },
+    {
+      "file": "01-技能目录.md",
+      "sha256": "2c8ff8681804ca251cc0196a34112d912cfd7531557b8e1b9fec6310f5dcb24c"
+    },
+    {
+      "file": "02-插件与工具边界.md",
+      "sha256": "982637a9c41e036c1aead3031b664d75f54efd30e305df0e42878db4cb8737b1"
+    },
+    {
+      "file": "03-知识库读取指南.md",
+      "sha256": "886c877c61d022b59c9fb69d5f5108e694bcdfd88c4c0334f31003ef7af04aa1"
+    },
+    {
+      "file": "04-协作约定.md",
+      "sha256": "a9e2ce2f55c202b5d6166e597aaf81b9c715a9f0efa0d2557ed503eba5997459"
+    },
+    {
+      "file": "05-DSH使用与兼容说明.md",
+      "sha256": "82374efd2e0b6b552e7a854def57c02b25d6a7e1f39347d0520993cc3c41d157"
+    },
+    {
+      "file": "06-来源与验证.md",
+      "sha256": "ce5469f28b44c975c30c163d3ce1992abd84c80da3e01409aa9ad174d047d7c3"
+    },
+    {
+      "file": "07-DSH读回验证.md",
+      "sha256": "e8e311704b369e8867de9b43e67272f0580311dc7d0a191a90b21892162d7fa7"
+    },
+    {
+      "file": "inventory.json",
+      "sha256": "26db68afed10af0b5e57c21234e746498598fc5ce37b8eb738992b27126c8fae"
+    }
+  ],
+  "skills": 47,
+  "personal_skills": 17,
+  "system_skills": 5,
+  "plugin_skills": 25,
+  "plugins_enabled": 14,
+  "checks": [
+    "所有技能源 SKILL.md 可读取",
+    "所有盘点 knowledge_entries 路径存在",
+    "DSH 副本 SHA256 一致",
+    "skill-creator quick_validate.py 通过",
+    "JSON 与 Markdown 相对链接检查通过",
+    "DSH 新会话关键内容读回一致"
+  ],
+  "dsh_model_readback": "completed",
+  "finalized_at": "2026-10-26T11:10:51",
+  "readback_record": "07-DSH读回验证.md",
+  "finalization_backup": "C:\\Users\\邓庆帅\\Documents\\Codex\\2026-10-26\\new-chat\\work\\backups\\guide-before-readback-finalization"
+}

@@ -1,0 +1,20 @@
+{
+  "name": "dsh-profile-desktop",
+  "private": true,
+  "dependencies": {
+    "@linxin666/dsh-client-ui-skin-center": "^0.4.8",
+    "@linxin666/dsh-client-ui-task-board": "^0.4.8",
+    "dsh-whale-girl-live2d": "file:C:/Users/邓庆帅/Documents/Codex/2026-10-26/new-chat/work/whale-girl-install/whale-girl-source.tar.gz"
+  },
+  "dsh": {
+    "profile": {
+      "bundles": [
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-web-app",
+        "dsh-whale-girl-live2d",
+        "@linxin666/dsh-client-ui-skin-center",
+        "@linxin666/dsh-client-ui-task-board"
+      ]
+    }
+  }
+}

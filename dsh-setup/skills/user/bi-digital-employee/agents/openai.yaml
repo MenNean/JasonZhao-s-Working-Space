@@ -1,0 +1,4 @@
+﻿interface:
+  display_name: "BI 数字员工"
+  short_description: "基于 project4 知识库进行 BI 问数反问、口径映射和 SQL 生成。"
+  default_prompt: "使用 BI 数字员工，根据业务查数问题判断是否需要反问；条件充分时生成可解释 SQL，并说明使用的口径、模板和风险。"

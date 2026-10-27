@@ -1,0 +1,64 @@
+{
+  "set_node_form": {
+    "begin": {
+      "mode": "conversational",
+      "enablePrologue": true,
+      "prologue": "你好，我是知识库小助手，直接问我就行。"
+    },
+    "Agent:kbBot": {
+      "llm_id": "<name>@<instance_name>@<provider_name>",
+      "temperature": 0.3,
+      "top_p": 0.3,
+      "presence_penalty": 0.4,
+      "frequency_penalty": 0.3,
+      "max_tokens": 256,
+      "max_rounds": 5,
+      "message_history_window_size": 12,
+      "cite": true,
+      "tools": [
+        {
+          "id": "Retrieval:<HumanId>",
+          "name": "Retrieval_0",
+          "component_name": "Retrieval",
+          "params": {
+            "retrieval_from": "dataset",
+            "dataset_ids": ["<dataset_id>"],
+            "kb_ids": [],
+            "similarity_threshold": 0.2,
+            "top_n": 8,
+            "top_k": 1024,
+            "keywords_similarity_weight": 0.3,
+            "rerank_id": "<name>@<instance_name>@<provider_name>",
+            "use_kg": true,
+            "toc_enhance": true,
+            "cross_languages": ["Chinese"],
+            "meta_data_filter": { "method": "auto" }
+          }
+        },
+        {
+          "id": "Retrieval:<HumanId>",
+          "name": "记忆",
+          "component_name": "Retrieval",
+          "params": {
+            "retrieval_from": "memory",
+            "memory_ids": ["<memory_id>"],
+            "kb_ids": [],
+            "similarity_threshold": 0.2,
+            "top_n": 8,
+            "top_k": 1024,
+            "keywords_similarity_weight": 0.7,
+            "rerank_id": "",
+            "use_kg": false,
+            "toc_enhance": false,
+            "cross_languages": []
+          }
+        }
+      ]
+    },
+    "Message:reply": {
+      "content": ["{Agent:kbBot@content}"],
+      "memory_ids": ["<memory_id>"],
+      "auto_play": false
+    }
+  }
+}

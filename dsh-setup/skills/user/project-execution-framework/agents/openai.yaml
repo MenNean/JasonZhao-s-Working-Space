@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Execution Framework"
+  short_description: "Plan, script, run, iterate, and deliver project tasks."
+  default_prompt: "Use $project-execution-framework to execute this task through playbook, scripts, output, and iterative validation."

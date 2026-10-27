@@ -1,0 +1,4 @@
+interface:
+  display_name: "RAGFlow Knowledge Base Ops"
+  short_description: "Ingest, index and wire RAGFlow datasets into agents"
+  default_prompt: "Use $ragflow-kb-ops to sync local files into a RAGFlow dataset and wire them into an agent."

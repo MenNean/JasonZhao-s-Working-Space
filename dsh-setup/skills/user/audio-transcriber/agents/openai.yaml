@@ -1,0 +1,4 @@
+interface:
+  display_name: "Audio Transcriber"
+  short_description: "Transcribe local audio with timestamped speaker-labeled outputs."
+  default_prompt: "Transcribe this local audio file and produce Markdown, SRT, and JSON outputs with speaker labels when possible."
